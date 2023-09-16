@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import React, { useRef, forwardRef } from "react";
+import React, { useRef, forwardRef, useState } from "react";
 import { Button } from "./Button";
 
 import GridLayout from "react-grid-layout";
@@ -43,10 +43,11 @@ const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
 });
 
 function DashboardGrid() {
-  const [cardCount, setCardCount] = React.useState(3);
-  const [removeMode, setRemoveMode] = React.useState(true);
+  const [cardCount, setCardCount] = useState(3);
+  const [settingsModal, setSettingsModal] = useState(false);
+  const [removeMode, setRemoveMode] = useState(false);
   // layout is an array of objects, see the demo for more complete usage
-  const [layout, setLayout] = React.useState<Array<Card>>([
+  const [layout, setLayout] = useState<Card[]>([
     { i: "0", x: 0, y: 0, w: 4, h: 2, minW: 1, maxW: 6 },
     { i: "1", x: 0, y: 1, w: 2, h: 2, minW: 1, maxW: 4 },
     { i: "2", x: 4, y: 0, w: 1, h: 2, minW: 1, maxW: 4 },
@@ -72,9 +73,10 @@ function DashboardGrid() {
     return (
       <GridCard
         key={card.i}
-        className="rounded-md bg-blue-600 bg-opacity-25 p-2"
+        className=" rounded-md bg-blue-600 bg-opacity-25 p-2"
       >
         <button
+          className="h-full w-full"
           onClick={() => {
             setLayout((layout) => {
               const newLayout = removeMode
@@ -84,18 +86,51 @@ function DashboardGrid() {
             });
           }}
         >
-          XX remove XX
+          CONTENTS
         </button>
-        Dummy Data
       </GridCard>
     );
   });
+  const editButtons = (
+    <div className="flex gap-2">
+      <Button variant="outline" onClick={addCard} className="w-24 text-black">
+        Add Card
+      </Button>
+      <Button
+        variant="outline"
+        className="w-48 text-black"
+        onClick={() =>
+          setRemoveMode((old) => {
+            return !old;
+          })
+        }
+      >
+        {removeMode ? "Removing Enabled" : "Enable Removing Cards"}
+      </Button>
+    </div>
+  );
+
+  // ensures removal mode is disabled when modal closed/opened
+  function closeModal() {
+    setRemoveMode(false);
+    setSettingsModal((old) => {
+      return !old;
+    });
+  }
 
   return (
     <div>
-      <Button variant="outline" onClick={addCard} className="text-black">
-        Add Card
-      </Button>
+      <div className="flex gap-2 px-12">
+        <Button
+          variant="outline"
+          size="icon"
+          className=" bg-opacity-25 text-2xl text-black"
+          onClick={closeModal}
+        >
+          {settingsModal ? "< " : ">"}
+        </Button>
+        {settingsModal ? editButtons : ""}
+      </div>
       <GridLayout
         className="overflow-x-hidden"
         layout={layout}
