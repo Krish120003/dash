@@ -26,7 +26,7 @@ export const calendarRouter = createTRPCRouter({
   //     return "you can now see this secret message!";
   //   }),
   getEvents: protectedProcedure.query(async ({ ctx }) => {
-    // get all events within the next 24 hours
+    // get next 10 events
 
     const calendar = google.calendar({
       version: "v3",
