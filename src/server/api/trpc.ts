@@ -15,7 +15,7 @@ import { ZodError } from "zod";
 
 import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
-import { getGoogleClient, getGoogleOauth2Client } from "../google";
+import { getGoogleOauth2Client } from "../google";
 
 /**
  * 1. CONTEXT
