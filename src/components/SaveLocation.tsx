@@ -4,11 +4,8 @@ import { api } from '~/utils/api';
 
 
 
-interface SaveLocationProps {
-    // Define any props you might pass to this component
-}
 
-const SaveLocation: React.FC<SaveLocationProps> = () => {
+const SaveLocation: React.FC = () => {
     const [selectedLocationType, setSelectedLocationType] = useState<string>(''); // State to store the selected location
 
 
@@ -31,10 +28,6 @@ const SaveLocation: React.FC<SaveLocationProps> = () => {
     }, []);
 
 
-    const handleLocationChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        setSelectedLocationType(e.target.value); // Update the selected location when the dropdown value changes
-    };
-
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // write to db using trpc endpiont
@@ -46,10 +39,10 @@ const SaveLocation: React.FC<SaveLocationProps> = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={void handleSubmit}>
             <label>
                 Select a Location:
-                <select value={selectedLocationType} onChange={handleLocationChange}>
+                <select value={selectedLocationType} onChange={(e) => setSelectedLocationType(e.target.value)}>
                     <option value="">-- Select a location --</option>
                     <option value="Home">Home</option>
                     <option value="Work">Work</option>
