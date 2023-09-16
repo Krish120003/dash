@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import React, { useRef, forwardRef } from "react";
 
 import GridLayout from "react-grid-layout";
@@ -61,20 +62,21 @@ function DashboardGrid() {
       <GridCard key="b" className="bg-blue-500" />
       {/* <GridCard key="c" className="bg-green-500" /> */}
       <div key="c" className="bg-green-500">
-        c
+        WHAT
       </div>
     </GridLayout>
   );
 }
 const Dashboard = () => {
-  const gridRef = useRef(null);
+  const { data: session, status } = useSession();
+
+  // extract the name of the user
+  const name = session?.user?.name || "World";
 
   return (
-    <div
-      ref={gridRef}
-      className="min-h-screen max-w-[100vw] overflow-hidden bg-zinc-900 text-white"
-    >
+    <div className="min-h-screen max-w-[100vw] overflow-hidden bg-zinc-900 text-white">
       DashboardGrid
+      <div className="text-2xl">Hello {name}!</div>
       <DashboardGrid />
     </div>
   );
