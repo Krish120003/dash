@@ -12,6 +12,26 @@ interface GridCardProps {
   children?: React.ReactNode;
 }
 
+interface Card {
+  i: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  minW: number;
+  maxW: number;
+}
+
+interface CardAlt {
+  i: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  minW: number;
+  maxW: number;
+}
+
 const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
   { style, className, onMouseDown, onMouseUp, onTouchEnd, children, ...props },
   ref: React.Ref<HTMLDivElement>,
@@ -32,12 +52,12 @@ const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
 });
 
 function DashboardGrid() {
-  const [cardCount, setCardCount] = React.useState(2);
+  const [cardCount, setCardCount] = React.useState(3);
   // layout is an array of objects, see the demo for more complete usage
   const [layout, setLayout] = React.useState([
-    { i: "a", x: 0, y: 0, w: 4, h: 4 },
-    { i: "b", x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
-    { i: "c", x: 4, y: 0, w: 1, h: 2 },
+    { i: "0", x: 0, y: 0, w: 4, h: 2 },
+    { i: "1", x: 0, y: 1, w: 2, h: 2, minW: 2, maxW: 4 },
+    { i: "2", x: 4, y: 0, w: 1, h: 2 },
   ]);
 
   function addCard() {
@@ -45,18 +65,29 @@ function DashboardGrid() {
 
     setLayout((layout) => [
       ...layout,
-      { i: String(cardCount), x: 0, y: 0, w: 3, h: 3 },
+      { i: String(cardCount), x: cardCount * 3 - 4, y: 0, w: 3, h: 3 },
     ]);
     setCardCount(cardCount + 1);
   }
 
-  const mape = layout.map((card) => {
+  const cards = layout.map((card) => {
     return (
-      <GridCard key={card.i} className="bg-blue-500">
+      <GridCard key={card.i} className="rounded-md bg-neutral-600 p-2">
+        <button
+          onClick={() => {
+            setLayout((layout) => {
+              const newLayout = layout.filter((layout) => layout != card);
+              return newLayout;
+            });
+          }}
+        >
+          XX remove XX
+        </button>
         Dummy Data
       </GridCard>
     );
   });
+
   return (
     <div>
       <button onClick={addCard}>Add Card</button>
@@ -71,9 +102,10 @@ function DashboardGrid() {
         preventCollision={false}
         onLayoutChange={(layout) => {
           console.log("Layout changed at", new Date(), layout);
+          setLayout(layout);
         }}
       >
-        {mape}
+        {cards}
       </GridLayout>
     </div>
   );
@@ -107,4 +139,13 @@ export default Dashboard;
         <div key="c" className="bg-green-500">
           WHAT
         </div>
+
+
+         function removeCard(card: Card) {
+    console.log("removing ", card);
+    setLayout((layout) => {
+      const newLayout = layout.filter((layout) => layout != card);
+      return newLayout;
+    });
+  }
         */
