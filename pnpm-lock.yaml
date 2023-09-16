@@ -29,6 +29,9 @@ dependencies:
   '@trpc/server':
     specifier: ^10.37.1
     version: 10.38.3
+  gridstack:
+    specifier: ^9.2.0
+    version: 9.2.0
   next:
     specifier: ^13.4.19
     version: 13.4.19(react-dom@18.2.0)(react@18.2.0)
@@ -1636,6 +1639,10 @@ packages:
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
+
+  /gridstack@9.2.0:
+    resolution: {integrity: sha512-+uWb4p1Za3j6OfvumXzuWQ4EcDh3kZZFLr0vONLPdrtGPJuxb73TjqttEu4igW7iP2Y80kewfYnNT6kQ0blJQQ==}
+    dev: false
 
   /has-bigints@1.0.2:
     resolution: {integrity: sha512-tSvCKtBr9lkF0Ex0aQiP9N+OpV4zi2r/Nee5VkRDbaqv35RLYMzbwQfFSZZH0kR+Rd6302UJZ2p/bJCEoR3VoQ==}
