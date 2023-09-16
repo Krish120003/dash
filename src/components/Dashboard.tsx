@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import React, { useRef, forwardRef } from "react";
-import { Button } from "./Button";
+import { Button } from "./ui/button";
 
 import GridLayout from "react-grid-layout";
 
