@@ -71,7 +71,7 @@ const Dashboard = () => {
   const { data: session, status } = useSession();
 
   // extract the name of the user
-  const name = session?.user?.name || "World";
+  const name = session?.user?.name ?? "World";
 
   return (
     <div className="min-h-screen max-w-[100vw] overflow-hidden bg-zinc-900 text-white">

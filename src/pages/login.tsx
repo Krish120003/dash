@@ -23,7 +23,7 @@ const LoginButton = (prop: LoginProps) => {
     : "text-black dark:text-white text-lg flex items-center justify-center gap-2 rounded-md border border-zinc-700 py-2 text-center font-medium hover:bg-[#dedede] dark:hover:bg-zinc-700";
   const iconStyling = main ? "aspect-square w-8" : "w-5 dark:text-white";
   return (
-    <button className={buttonStyling} onClick={() => signIn(provider)}>
+    <button className={buttonStyling} onClick={() => void signIn(provider)}>
       <div className={iconStyling}>
         {image !== undefined ? (
           <Image src={image} alt={`${title} Logo`} layout="responsive"></Image>
@@ -51,7 +51,7 @@ const Login: NextPage = () => {
           <LoginButton
             key={"google"}
             title={"Google"}
-            image={google_logo}
+            image={google_logo as HTMLImageElement}
             main={true}
             provider={"google"}
           />
