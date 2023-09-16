@@ -46,9 +46,20 @@ CREATE TABLE "Location" (
     "type" "LocationType" NOT NULL,
     "latitude" FLOAT8 NOT NULL,
     "longitude" FLOAT8 NOT NULL,
-    "Radius" FLOAT8 NOT NULL,
+    "radius" FLOAT8 NOT NULL,
 
     CONSTRAINT "Location_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Layout" (
+    "id" STRING NOT NULL,
+    "userId" STRING NOT NULL,
+    "name" STRING NOT NULL,
+    "layoutData" JSONB NOT NULL,
+    "locationId" STRING,
+
+    CONSTRAINT "Layout_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -94,4 +105,7 @@ ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Location" ADD CONSTRAINT "Location_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Layout" ADD CONSTRAINT "Layout_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Layout" ADD CONSTRAINT "Layout_locationId_fkey" FOREIGN KEY ("locationId") REFERENCES "Location"("id") ON DELETE SET NULL ON UPDATE CASCADE;
