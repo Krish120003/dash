@@ -1,17 +1,9 @@
 import { useSession } from "next-auth/react";
 import React, { useRef, forwardRef, useState } from "react";
-import { Button } from "./Button";
+import { Button } from "./ui/button";
 
 import GridLayout from "react-grid-layout";
-
-interface GridCardProps {
-  style?: React.CSSProperties;
-  className?: string;
-  onMouseDown?: React.MouseEventHandler<HTMLDivElement>;
-  onMouseUp?: React.MouseEventHandler<HTMLDivElement>;
-  onTouchEnd?: React.TouchEventHandler<HTMLDivElement>;
-  children?: React.ReactNode;
-}
+import GridCard from "./gridcard";
 
 interface Card {
   i: string;
@@ -22,25 +14,6 @@ interface Card {
   minW?: number | undefined;
   maxW?: number | undefined;
 }
-
-const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
-  { style, className, onMouseDown, onMouseUp, onTouchEnd, children, ...props },
-  ref: React.Ref<HTMLDivElement>,
-) {
-  return (
-    <div
-      style={{ ...style }}
-      className={className}
-      ref={ref}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      onTouchEnd={onTouchEnd}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-});
 
 function DashboardGrid() {
   const [cardCount, setCardCount] = useState(3);
@@ -165,26 +138,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-/*
-<GridCard key="a" className="">
-          <div className="h-full w-full rounded-md border border-zinc-700 bg-zinc-800 p-4 ">
-            <h2 className="text-2xl font-bold">Card Name</h2>
-            <p>Card Details</p>
-          </div>
-        </GridCard>
-        <GridCard key="b" className="bg-blue-500" />
-        {/* <GridCard key="c" className="bg-green-500" /> } /*
-        <div key="c" className="bg-green-500">
-          WHAT
-        </div>
-
-
-         function removeCard(card: Card) {
-    console.log("removing ", card);
-    setLayout((layout) => {
-      const newLayout = layout.filter((layout) => layout != card);
-      return newLayout;
-    });
-  }
-        */
