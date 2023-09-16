@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic";
 import { GetServerSidePropsContext } from "next/types";
-import Dashboard from "~/components/Dashboard";
+import Dashboard from "../components/Dashboard";
 import { getServerAuthSession } from "~/server/auth";
+import React from "react";
 
 // const DynamicDash = dynamic(() => import("../components/Dashboard"), {
 //   loading: () => <p>Loading...</p>,
