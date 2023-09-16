@@ -41,6 +41,9 @@ dependencies:
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
+  cohere-ai:
+    specifier: ^6.2.2
+    version: 6.2.2
   googleapis:
     specifier: '105'
     version: 105.0.0
@@ -978,6 +981,10 @@ packages:
   /clsx@2.0.0:
     resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
     engines: {node: '>=6'}
+    dev: false
+
+  /cohere-ai@6.2.2:
+    resolution: {integrity: sha512-+Tq+4e8N/YWKJqFpWaULsfbZR/GOvGh8WWYFKR1bpipu8bCok3VcbTPnBmIToQiIqOgFpGk3HsA4b0guVyL3vg==}
     dev: false
 
   /color-convert@2.0.1:

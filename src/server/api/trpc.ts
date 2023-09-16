@@ -16,6 +16,7 @@ import { ZodError } from "zod";
 import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
 import { getGoogleOauth2Client } from "../google";
+import { cohere } from "../cohere";
 
 /**
  * 1. CONTEXT
@@ -49,6 +50,7 @@ const createInnerTRPCContext = async (opts: CreateContextOptions) => {
     session: opts.session,
     db,
     googleOauth2Client,
+    cohere,
   };
 };
 

@@ -20,7 +20,7 @@ export const getGoogleOauth2Client = async (ctx: {
     process.env.VERCEL_URL ?? env.NEXTAUTH_URL,
   );
 
-  const access_token = (
+  const account = (
     await ctx.db.user.findUniqueOrThrow({
       where: {
         id: ctx.session.user.id,
@@ -30,15 +30,31 @@ export const getGoogleOauth2Client = async (ctx: {
           where: {
             provider: "google",
           },
-          select: {
-            access_token: true,
-          },
         },
       },
     })
-  ).accounts[0]?.access_token;
+  ).accounts[0];
 
-  oauth2Client.setCredentials({ access_token: access_token });
+  oauth2Client.setCredentials({
+    access_token: account?.access_token,
+    refresh_token: account?.refresh_token,
+  });
+
+  oauth2Client.on("tokens", (tokens) => {
+    if (tokens.refresh_token) {
+      // store the refresh_token in my database!
+      void ctx.db.account.update({
+        where: {
+          id: account?.id,
+        },
+        data: {
+          refresh_token: tokens.refresh_token,
+        },
+      });
+      console.log(tokens.refresh_token);
+    }
+    console.log(tokens.access_token);
+  });
 
   return oauth2Client;
 };

@@ -29,7 +29,8 @@ export const env = createEnv({
       process.env.VERCEL ? z.string().min(1) : z.string().url(),
     ),
     GOOGLE_CLIENT_SECRET: z.string().min(1),
-    GOOGLE_CLIENT_ID: z.string().min(1)
+    GOOGLE_CLIENT_ID: z.string().min(1),
+    COHERE_API_KEY: z.string().min(1),
     // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
   },
 
@@ -52,7 +53,8 @@ export const env = createEnv({
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    COHERE_API_KEY: process.env.COHERE_API_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

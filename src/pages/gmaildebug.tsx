@@ -5,9 +5,9 @@ export default function Gmail () {
 
     return (
         <>
-        <code>
+        <pre>
         {JSON.stringify(gmail.data, undefined, 4)}
-        </code>
+        </pre>
         </>
     )
 }

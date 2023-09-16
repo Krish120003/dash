@@ -40,14 +40,41 @@ export const calendarRouter = createTRPCRouter({
       singleEvents: true,
       orderBy: "startTime",
     });
+    console.log("GOTTEN CALENDAR EVENTS");
 
-    return res.data.items?.map((i) => {
-      return {
-        summary: i.summary,
-        desc: i.description,
-        start: i.start,
-        end: i.end,
-      };
-    });
+    if (res.data.items) {
+      console.log(res.data.items.map((e) => (e.summary ? e.summary : "")));
+      const categories = (
+        await ctx.cohere.classify({
+          inputs: res.data.items.map((e) => (e.summary ? e.summary : "")),
+          examples: [
+            { text: "WE GO HTN RAHHHHHH", label: "PERSONAL" },
+            { text: "SalesBop Sitdown", label: "MEETING" },
+            { text: "DeltaHacks Team Meeting", label: "MEETING" },
+            { text: "Jason's Coffeehouse", label: "PERSONAL" },
+            { text: "STATS 2D03 C02 - Intro To Probability", label: "LECTURE" },
+            {
+              text: "COMPSCI 3IS3 C01 - Information Security",
+              label: "LECTURE",
+            },
+            { text: "Weekly Review", label: "PERSONAL" },
+          ],
+        })
+      ).body.classifications;
+
+      console.log(categories);
+
+      console.log("GOTTEN COHERE");
+
+      return res.data.items?.map((e, x) => {
+        return {
+          summary: e.summary,
+          desc: e.description,
+          start: e.start,
+          end: e.end,
+          category: categories?.[x]?.prediction,
+        };
+      });
+    }
   }),
 });

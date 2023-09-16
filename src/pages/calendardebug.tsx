@@ -7,9 +7,9 @@ export default function Cal () {
 
     return (
         <>
-        <code>
+        <pre>
         {JSON.stringify(cal.data, undefined, 4)}
-        </code>
+        </pre>
         </>
     )
 }
