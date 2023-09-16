@@ -40,7 +40,7 @@ function DashboardGrid() {
 
   return (
     <GridLayout
-      className="layout"
+      className="overflow-x-hidden"
       layout={layout}
       cols={12}
       autoSize={true}
@@ -70,7 +70,10 @@ const Dashboard = () => {
   const gridRef = useRef(null);
 
   return (
-    <div ref={gridRef} className="min-h-screen bg-zinc-900 text-white">
+    <div
+      ref={gridRef}
+      className="min-h-screen max-w-[100vw] overflow-hidden bg-zinc-900 text-white"
+    >
       DashboardGrid
       <DashboardGrid />
     </div>
