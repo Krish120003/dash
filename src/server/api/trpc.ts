@@ -15,6 +15,7 @@ import { ZodError } from "zod";
 
 import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
+import { getGoogleOauth2Client } from "../google";
 
 /**
  * 1. CONTEXT
@@ -38,10 +39,16 @@ interface CreateContextOptions {
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
-const createInnerTRPCContext = (opts: CreateContextOptions) => {
+const createInnerTRPCContext = async (opts: CreateContextOptions) => {
+  const googleOauth2Client = await getGoogleOauth2Client({
+    db,
+    session: opts.session,
+  });
+
   return {
     session: opts.session,
     db,
+    googleOauth2Client,
   };
 };
 
@@ -57,7 +64,7 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   // Get the session from the server using the getServerSession wrapper function
   const session = await getServerAuthSession({ req, res });
 
-  return createInnerTRPCContext({
+  return await createInnerTRPCContext({
     session,
   });
 };
@@ -109,13 +116,14 @@ export const publicProcedure = t.procedure;
 
 /** Reusable middleware that enforces users are logged in before running the procedure. */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
-  if (!ctx.session?.user) {
+  if (!ctx.session?.user || !ctx.googleOauth2Client) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
   return next({
     ctx: {
       // infers the `session` as non-nullable
       session: { ...ctx.session, user: ctx.session.user },
+      googleOauth2Client: ctx.googleOauth2Client,
     },
   });
 });

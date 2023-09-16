@@ -1,5 +1,6 @@
 import { exampleRouter } from "~/server/api/routers/example";
 import { createTRPCRouter } from "~/server/api/trpc";
+import { calendarRouter } from "~/server/api/routers/calendar";
 import { locationRouter } from "./routers/location";
 
 /**
@@ -9,6 +10,7 @@ import { locationRouter } from "./routers/location";
  */
 export const appRouter = createTRPCRouter({
   example: exampleRouter,
+  calendar: calendarRouter,
   location: locationRouter
 });
 

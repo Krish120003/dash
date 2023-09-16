@@ -11,7 +11,7 @@ import { getServerAuthSession } from "~/server/auth";
 export default function Dash() {
   return (
     <>
-      <main className="min-h-screen w-full bg-white">
+      <main className="min-h-screen w-full">
         {/* <DynamicDash /> */}
         <Dashboard />
       </main>
