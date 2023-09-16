@@ -18,18 +18,8 @@ interface Card {
   y: number;
   w: number;
   h: number;
-  minW: number;
-  maxW: number;
-}
-
-interface CardAlt {
-  i: string;
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-  minW: number;
-  maxW: number;
+  minW?: number | undefined;
+  maxW?: number | undefined;
 }
 
 const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
@@ -53,11 +43,12 @@ const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
 
 function DashboardGrid() {
   const [cardCount, setCardCount] = React.useState(3);
+  const [removeMode, setRemoveMode] = React.useState(true);
   // layout is an array of objects, see the demo for more complete usage
-  const [layout, setLayout] = React.useState([
-    { i: "0", x: 0, y: 0, w: 4, h: 2 },
-    { i: "1", x: 0, y: 1, w: 2, h: 2, minW: 2, maxW: 4 },
-    { i: "2", x: 4, y: 0, w: 1, h: 2 },
+  const [layout, setLayout] = React.useState<Array<Card>>([
+    { i: "0", x: 0, y: 0, w: 4, h: 2, minW: 1, maxW: 6 },
+    { i: "1", x: 0, y: 1, w: 2, h: 2, minW: 1, maxW: 4 },
+    { i: "2", x: 4, y: 0, w: 1, h: 2, minW: 1, maxW: 4 },
   ]);
 
   function addCard() {
@@ -65,7 +56,15 @@ function DashboardGrid() {
 
     setLayout((layout) => [
       ...layout,
-      { i: String(cardCount), x: cardCount * 3 - 4, y: 0, w: 3, h: 3 },
+      {
+        i: String(cardCount),
+        x: cardCount * 3 - 4,
+        y: 0,
+        w: 3,
+        h: 3,
+        minW: 1,
+        maxW: 4,
+      },
     ]);
     setCardCount(cardCount + 1);
   }
@@ -76,7 +75,9 @@ function DashboardGrid() {
         <button
           onClick={() => {
             setLayout((layout) => {
-              const newLayout = layout.filter((layout) => layout != card);
+              const newLayout = removeMode
+                ? layout.filter((layout) => layout != card)
+                : layout;
               return newLayout;
             });
           }}
