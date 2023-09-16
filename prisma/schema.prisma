@@ -62,7 +62,7 @@ model Location {
     type      LocationType
     latitude  Float
     longitude Float
-    Radius    Float
+    radius    Float
     user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
