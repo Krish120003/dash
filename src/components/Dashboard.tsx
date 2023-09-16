@@ -1,17 +1,9 @@
 import { useSession } from "next-auth/react";
-import React, { useRef, forwardRef } from "react";
+import React, { useRef, forwardRef, useState } from "react";
 import { Button } from "./ui/button";
 
 import GridLayout from "react-grid-layout";
-
-interface GridCardProps {
-  style?: React.CSSProperties;
-  className?: string;
-  onMouseDown?: React.MouseEventHandler<HTMLDivElement>;
-  onMouseUp?: React.MouseEventHandler<HTMLDivElement>;
-  onTouchEnd?: React.TouchEventHandler<HTMLDivElement>;
-  children?: React.ReactNode;
-}
+import GridCard from "./gridcard";
 
 interface Card {
   i: string;
@@ -23,30 +15,11 @@ interface Card {
   maxW?: number | undefined;
 }
 
-const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
-  { style, className, onMouseDown, onMouseUp, onTouchEnd, children, ...props },
-  ref: React.Ref<HTMLDivElement>,
-) {
-  return (
-    <div
-      style={{ ...style }}
-      className={className}
-      ref={ref}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      onTouchEnd={onTouchEnd}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-});
-
 function DashboardGrid() {
-  const [cardCount, setCardCount] = React.useState(3);
-  const [removeMode, setRemoveMode] = React.useState(true);
+  const [cardCount, setCardCount] = useState(3);
+  const [removeMode, setRemoveMode] = useState(true);
   // layout is an array of objects, see the demo for more complete usage
-  const [layout, setLayout] = React.useState<Array<Card>>([
+  const [layout, setLayout] = useState<Card[]>([
     { i: "0", x: 0, y: 0, w: 4, h: 2, minW: 1, maxW: 6 },
     { i: "1", x: 0, y: 1, w: 2, h: 2, minW: 1, maxW: 4 },
     { i: "2", x: 4, y: 0, w: 1, h: 2, minW: 1, maxW: 4 },
