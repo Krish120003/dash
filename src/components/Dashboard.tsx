@@ -18,9 +18,15 @@ class MyFirstGrid extends React.Component {
         rowHeight={30}
         width={1200}
       >
-        <div key="a">a</div>
-        <div key="b">b</div>
-        <div key="c">c</div>
+        <div className="bg-white" key="a">
+          a
+        </div>
+        <div className="bg-white" key="b">
+          b
+        </div>
+        <div className="bg-white" key="c">
+          c
+        </div>
       </GridLayout>
     );
   }
