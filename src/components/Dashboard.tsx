@@ -43,8 +43,11 @@ function DashboardGrid() {
       className="layout"
       layout={layout}
       cols={12}
-      rowHeight={30}
+      autoSize={true}
+      rowHeight={60}
+      allowOverlap={false}
       width={1200}
+      preventCollision={false}
       onLayoutChange={(layout) => {
         console.log("Layout changed at", new Date(), layout);
       }}
@@ -67,7 +70,7 @@ const Dashboard = () => {
   const gridRef = useRef(null);
 
   return (
-    <div ref={gridRef} className="bg-zinc-900 text-white">
+    <div ref={gridRef} className="min-h-screen bg-zinc-900 text-white">
       DashboardGrid
       <DashboardGrid />
     </div>
