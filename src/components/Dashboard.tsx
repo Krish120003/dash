@@ -103,26 +103,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-/*
-<GridCard key="a" className="">
-          <div className="h-full w-full rounded-md border border-zinc-700 bg-zinc-800 p-4 ">
-            <h2 className="text-2xl font-bold">Card Name</h2>
-            <p>Card Details</p>
-          </div>
-        </GridCard>
-        <GridCard key="b" className="bg-blue-500" />
-        {/* <GridCard key="c" className="bg-green-500" /> } /*
-        <div key="c" className="bg-green-500">
-          WHAT
-        </div>
-
-
-         function removeCard(card: Card) {
-    console.log("removing ", card);
-    setLayout((layout) => {
-      const newLayout = layout.filter((layout) => layout != card);
-      return newLayout;
-    });
-  }
-        */
