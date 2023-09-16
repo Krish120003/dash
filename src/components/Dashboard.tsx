@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import React, { useRef, forwardRef } from "react";
+import { Button } from "./Button";
 
 import GridLayout from "react-grid-layout";
 
@@ -92,7 +93,9 @@ function DashboardGrid() {
 
   return (
     <div>
-      <button onClick={addCard}>Add Card</button>
+      <Button variant="outline" onClick={addCard} className="text-black">
+        Add Card
+      </Button>
       <GridLayout
         className="overflow-x-hidden"
         layout={layout}
