@@ -62,8 +62,6 @@ function DashboardGrid() {
         y: 0,
         w: 3,
         h: 3,
-        minW: 1,
-        maxW: 4,
       },
     ]);
     setCardCount(cardCount + 1);
@@ -71,7 +69,10 @@ function DashboardGrid() {
 
   const cards = layout.map((card) => {
     return (
-      <GridCard key={card.i} className="rounded-md bg-neutral-600 p-2">
+      <GridCard
+        key={card.i}
+        className="rounded-md bg-blue-600 bg-opacity-25 p-2"
+      >
         <button
           onClick={() => {
             setLayout((layout) => {
@@ -118,8 +119,7 @@ const Dashboard = () => {
   const name = session?.user?.name ?? "World";
 
   return (
-    <div className="min-h-screen max-w-[100vw] overflow-hidden bg-zinc-900 text-white">
-      DashboardGrid
+    <div className="min-h-screen max-w-[100vw] overflow-hidden text-white">
       <div className="text-2xl">Hello {name}!</div>
       <DashboardGrid />
     </div>
