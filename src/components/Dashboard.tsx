@@ -25,16 +25,15 @@ const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
       onTouchEnd={onTouchEnd}
       {...props}
     >
-      {/* Some other content */}
-      {children} {/* Make sure to include children to add resizable handle */}
+      {children}
     </div>
   );
 });
 
-function MyFirstGrid() {
+function DashboardGrid() {
   // layout is an array of objects, see the demo for more complete usage
   const layout = [
-    { i: "a", x: 0, y: 0, w: 1, h: 2, static: true },
+    { i: "a", x: 0, y: 0, w: 4, h: 4 },
     { i: "b", x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
     { i: "c", x: 4, y: 0, w: 1, h: 2 },
   ];
@@ -46,10 +45,21 @@ function MyFirstGrid() {
       cols={12}
       rowHeight={30}
       width={1200}
+      onLayoutChange={(layout) => {
+        console.log("Layout changed at", new Date(), layout);
+      }}
     >
-      <GridCard key="a" className="bg-red-500" />
+      <GridCard key="a" className="">
+        <div className="h-full w-full rounded-md border border-zinc-700 bg-zinc-800 p-4 ">
+          <h2 className="text-2xl font-bold">Card Name</h2>
+          <p>Card Details</p>
+        </div>
+      </GridCard>
       <GridCard key="b" className="bg-blue-500" />
-      <GridCard key="c" className="bg-green-500" />
+      {/* <GridCard key="c" className="bg-green-500" /> */}
+      <div key="c" className="bg-green-500">
+        c
+      </div>
     </GridLayout>
   );
 }
@@ -57,9 +67,9 @@ const Dashboard = () => {
   const gridRef = useRef(null);
 
   return (
-    <div ref={gridRef}>
-      MyFirstGrid
-      <MyFirstGrid />
+    <div ref={gridRef} className="bg-zinc-900 text-white">
+      DashboardGrid
+      <DashboardGrid />
     </div>
   );
 };
