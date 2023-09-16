@@ -1,62 +1,125 @@
-import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import { LocationType } from '@prisma/client';
-import { api } from '~/utils/api';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LocationType } from "@prisma/client";
+import React, { FormEvent, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { api } from "~/utils/api";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
-
-
+import { z } from "zod";
+import { Button } from "./ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
+import { Input } from "./ui/input";
 
 const SaveLocation: React.FC = () => {
-    const [selectedLocationType, setSelectedLocationType] = useState<string>(''); // State to store the selected location
+  const [selectedLocationType, setSelectedLocationType] = useState<string>(""); // State to store the selected location
 
+  const [currentLocation, setCurrentLocation] =
+    useState<GeolocationCoordinates>();
+  const [error, setError] = useState<string>();
+  const saveLocation = api.location.saveLocation.useMutation();
 
-    const [currentLocation, setCurrentLocation] = useState<GeolocationCoordinates>();
-    const [error, setError] = useState<string>();
-    const saveLocation = api.location.saveLocation.useMutation();
-    const [radius, setRadius] = useState<number>(100);
-
-
-
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                setCurrentLocation(position.coords);
-            },
-            (error) => {
-                setError(error.message);
-            }
-        );
-    }, []);
-
-
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // write to db using trpc endpiont
-        console.log(selectedLocationType)
-        const type = selectedLocationType === "Home" ? LocationType.HOME : selectedLocationType === "Work" ? LocationType.WORK : LocationType.SCHOOL;
-        if (currentLocation?.latitude && currentLocation?.longitude) {
-            await saveLocation.mutateAsync({ type: type, coordinates: { latitude: currentLocation.latitude, longitude: currentLocation.longitude }, radius: radius })
-        }
-    };
-
-    return (
-        <form onSubmit={void handleSubmit}>
-            <label>
-                Select a Location:
-                <select value={selectedLocationType} onChange={(e) => setSelectedLocationType(e.target.value)}>
-                    <option value="">-- Select a location --</option>
-                    <option value="Home">Home</option>
-                    <option value="Work">Work</option>
-                    <option value="School">School</option>
-                </select>
-            </label>
-            <label>
-                Radius:
-                <input type="number" name="radius" onChange={(e) => setRadius(Number.parseInt(e.target.value))} />
-            </label>
-
-            <button type="submit">Save Location</button>
-        </form>
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setCurrentLocation(position.coords);
+      },
+      (error) => {
+        setError(error.message);
+      },
     );
+  }, []);
+
+  const FormSchema = z.object({
+    location: z.nativeEnum(LocationType, {
+      required_error: "Please select a location",
+    }),
+    radius: z.string().nonempty({ message: "Please select a radius" }),
+  });
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      radius: "",
+    },
+  });
+
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log(data);
+    // write to db using trpc endpiont
+    console.log(selectedLocationType);
+    const type =
+      selectedLocationType === "HOME"
+        ? LocationType.HOME
+        : selectedLocationType === "WORK"
+        ? LocationType.WORK
+        : LocationType.SCHOOL;
+    if (currentLocation?.latitude && currentLocation?.longitude) {
+      await saveLocation.mutateAsync({
+        type: data.location,
+        coordinates: {
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude,
+        },
+        radius: Number.parseInt(data.radius),
+      });
+    }
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+        <FormField
+          control={form.control}
+          name="location"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Location</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Please select a location" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="HOME">Home</SelectItem>
+                  <SelectItem value="WORK">Work</SelectItem>
+                  <SelectItem value="SCHOOL">School</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="radius"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Radius</FormLabel>
+              <FormControl>
+                <Input placeholder="100" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
+  );
 };
 
 export default SaveLocation;
