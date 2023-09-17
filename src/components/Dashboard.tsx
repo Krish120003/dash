@@ -62,7 +62,7 @@ const Temp: React.FC = () => {
 };
 
 const getWidget = (type: WidgetTypes) => {
-  const mapping: Record<WidgetTypes, React.FC> = {
+  const mapping: Record<WidgetTypes, React.FC<any>> = {
     Spacer: Temp,
     Weather: WeatherCard,
     Gmail: GmailCard,
