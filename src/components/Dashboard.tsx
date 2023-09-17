@@ -7,6 +7,30 @@ import GridCard from "./GridCard";
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import WeatherCard from "./WeatherCard";
+import StockCard from "./widgets/StockCard";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+
+import { ThemeProvider } from "./theme-provider";
+import { Label } from "./ui/label";
+import { Input } from "./ui/input";
 
 interface DashboardGridProps {
   editable: boolean;
@@ -119,6 +143,9 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
           <WeatherCard />
         </GridCard>
       ))}
+      <GridCard editable={editable} key="stock">
+        <StockCard />
+      </GridCard>
     </GridLayout>
   );
 };
@@ -132,13 +159,49 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen max-w-[100vw] overflow-hidden bg-zinc-900 text-white">
-      <Button onClick={() => setEditing((t) => !t)}>
+    <div className="min-h-screen max-w-[100vw] gap-8 overflow-hidden bg-zinc-900 font-red-hat text-white">
+      <Button className="text-md" onClick={() => setEditing((t) => !t)}>
         {editing ? "Normal Mode" : "Edit Mode"}
       </Button>
+      <Sheet>
+        <SheetTrigger className="text-md font-red-hat">
+          Add a Wigdet
+        </SheetTrigger>
+        <SheetContent className="w-[400px] sm:w-[900px]">
+          <SheetHeader className="gap-4">
+            <SheetTitle className="text-2xl">
+              Chose a widget from below to add to your board.
+            </SheetTitle>
+            <SheetDescription className=" flex h-full w-full justify-around">
+              <Button className="w-1/3 text-lg">Weather</Button>
+              <Dialog>
+                <DialogTrigger className="w-1/3 bg-white text-lg text-black">
+                  Stocks
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>
+                      Input the ticker for the stock you would like to track.
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="name" className="text-right">
+                      Ticker
+                    </Label>
+                    <Input id="ticker" value="APPL" className="col-span-3" />
+                  </div>
+                  <DialogFooter>
+                    <Button type="submit">Add Widget</Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
       <div
         className={cn(
-          editing ? "scale-95 border border-white" : "scale-100",
+          editing ? "scale-[85%] border border-white" : "scale-100",
           "transition-all",
         )}
       >

@@ -22,8 +22,9 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      <main className=" flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#401d6f] to-[#5559a5]">
-        <div className="font-red-hat container flex flex-col items-center justify-center gap-12 px-4 py-16">
+
+      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#401d6f] to-[#5559a5]">
+        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 font-red-hat">
           <Dash />
         </div>
       </main>
