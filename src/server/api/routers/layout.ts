@@ -31,6 +31,7 @@ export const layoutRouter = createTRPCRouter({
 
     // return the layouts
     if (!layouts || layouts.length === 0) {
+      console.log("NO LAYOUTS FOUND");
       // if there are no layouts, create a default layout
       const defaultLayout = layoutDataSchema.parse([
         {
@@ -60,9 +61,7 @@ export const layoutRouter = createTRPCRouter({
     const parsed = layouts.map((data) => {
       return {
         ...data,
-        layoutData: layoutDataSchema.parse(
-          JSON.parse(data.layoutData as string),
-        ),
+        layoutData: layoutDataSchema.parse(JSON.parse(data.layoutData)),
       };
     });
     return parsed;

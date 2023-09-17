@@ -21,7 +21,7 @@ const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
     <div
       style={{ ...style }}
       className={cn(
-        "rounded-2xl border-2 border-zinc-400 bg-neutral-800 p-4",
+        "rounded-2xl border-2 border-zinc-400 bg-neutral-800 p-4 mix-blend-overlay",
         className,
       )}
       ref={ref}
