@@ -2,8 +2,9 @@ import dynamic from "next/dynamic";
 import { GetServerSidePropsContext } from "next/types";
 import Dashboard from "../components/Dashboard";
 import { getServerAuthSession } from "~/server/auth";
-import React from "react";
+import React, { useEffect } from "react";
 import { ThemeProvider } from "~/components/theme-provider";
+import { useTheme } from "next-themes";
 
 // const DynamicDash = dynamic(() => import("../components/Dashboard"), {
 //   loading: () => <p>Loading...</p>,
@@ -11,13 +12,17 @@ import { ThemeProvider } from "~/components/theme-provider";
 // });
 
 export default function Dash() {
+  const { setTheme } = useTheme();
+
+  useEffect(() => {
+    setTheme("dark");
+  }, []);
+
   return (
     <>
       <main className="min-h-screen w-full">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {/* <DynamicDash /> */}
-          <Dashboard />
-        </ThemeProvider>
+        {/* <DynamicDash /> */}
+        <Dashboard />
       </main>
     </>
   );

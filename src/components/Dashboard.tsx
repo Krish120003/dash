@@ -32,7 +32,9 @@ import {
 import { ThemeProvider } from "./theme-provider";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import { Grid } from "lucide-react";
 import SaveLocation from "./SaveLocation";
+import ClockCard from "./widgets/ClockCard";
 
 interface DashboardGridProps {
   editable: boolean;
@@ -148,8 +150,8 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
       <GridCard editable={editable} key="stock">
         <StockCard />
       </GridCard>
-      <GridCard editable={editable} key="github">
-        <GithubCard />
+      <GridCard editable={editable} key="clock">
+        <ClockCard />
       </GridCard>
     </GridLayout>
   );
