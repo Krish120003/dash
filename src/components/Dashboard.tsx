@@ -11,6 +11,7 @@ import StockCard from "./widgets/StockCard";
 import CalendarCard from "./CalendarCard";
 import NewsCard from "./NewsCard";
 import { getQueryKey } from "@trpc/react-query";
+import Cat from "./elCatto";
 
 import {
   Sheet,
@@ -59,7 +60,8 @@ type WidgetTypes =
   | "Stock"
   | "Github"
   | "News"
-  | "Clock";
+  | "Clock"
+  | "Pet";
 
 const Temp: React.FC = () => {
   return <></>;
@@ -79,6 +81,7 @@ const getWidget = (type: WidgetTypes) => {
     Github: GithubCard,
     News: NewsCard,
     Clock: ClockCard,
+    Pet: Cat,
   };
   return mapping[type as WidgetTypes] || (() => <></>);
 };
@@ -141,6 +144,9 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({
           toSpread = { minH: 1, minW: 1 };
           break;
         case "Clock":
+          toSpread = { minH: 1, minW: 1 };
+          break;
+        case "Pet":
           toSpread = { minH: 1, minW: 1 };
           break;
       }
@@ -286,7 +292,7 @@ const AddSheet: React.FC<AddSheetProps> = ({ layoutIdx, setLayoutIdx }) => {
           </SheetTitle>
           <SheetDescription className=""></SheetDescription>
           <SheetClose ref={closeRef} />
-          <div className="grid grid-cols-2 gap-4 text-white">
+          <div className="grid h-[80vh] grid-cols-2 gap-4 overflow-y-scroll text-white">
             <Dialog>
               <DialogTrigger className="aspect-square h-auto rounded-2xl border border-white bg-black text-lg font-medium">
                 Stock Ticker
@@ -654,7 +660,50 @@ const AddSheet: React.FC<AddSheetProps> = ({ layoutIdx, setLayoutIdx }) => {
             >
               Github
             </Button>
+            <Button
+              className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900"
+              onClick={(e) => {
+                let biggestY = 0;
+                Tlayout?.layoutData.forEach((l) => {
+                  if (l.layout.y + l.layout.h > biggestY) {
+                    biggestY = l.layout.y + l.layout.h;
+                  }
+                });
+
+                Tlayout?.layoutData.push({
+                  layout: {
+                    h: 2,
+                    w: 3,
+                    i: (Math.random() + 1).toString(36).substring(7),
+                    x: 0,
+                    y: biggestY,
+                  },
+                  widget_type: "Pet" as WidgetTypes,
+                  data: { ticker: stockTicker },
+                });
+
+                if (Tlayout === undefined || !layouts) {
+                } else {
+                  layouts[layoutIdx] = Tlayout;
+
+                  mutation.mutate({
+                    id: Tlayout.id,
+                    data: {
+                      layoutData: Tlayout.layoutData,
+                    },
+                  });
+                }
+
+                if (closeRef && closeRef.current) {
+                  closeRef.current.click();
+                }
+                return e;
+              }}
+            >
+              Pet
+            </Button>
           </div>
+          <p>Scroll for more components</p>
         </SheetHeader>
       </SheetContent>
     </Sheet>
