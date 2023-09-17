@@ -5,6 +5,8 @@ import Dash from "./mydash";
 
 import { api } from "~/utils/api";
 import React from "react";
+import { GetServerSidePropsContext } from "next/types";
+import { getServerAuthSession } from "~/server/auth";
 
 export default function Home() {
   return (
@@ -28,3 +30,9 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const session = await getServerAuthSession(ctx);
+
+  return { redirect: { destination: "/login", permanent: false } };
+};

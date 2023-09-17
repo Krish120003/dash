@@ -6,6 +6,7 @@ import GridLayout from "react-grid-layout";
 import GridCard from "./GridCard";
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
+import WeatherCard from "./WeatherCard";
 
 interface DashboardGridProps {
   editable: boolean;
@@ -102,6 +103,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
       {asdf.map((card) => (
         <GridCard key={card.i} className="" editable={editable}>
           "I am {card.i}"
+          <WeatherCard />
         </GridCard>
       ))}
     </GridLayout>
