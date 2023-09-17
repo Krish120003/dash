@@ -48,6 +48,7 @@ import GithubCard from "./GithubCard";
 
 interface DashboardGridProps {
   editable: boolean;
+  layoutIdx: number;
 }
 
 type WidgetTypes =
@@ -82,7 +83,10 @@ const getWidget = (type: WidgetTypes) => {
   return mapping[type as WidgetTypes] || (() => <></>);
 };
 
-const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
+const DashboardGrid: React.FC<DashboardGridProps> = ({
+  layoutIdx,
+  editable,
+}) => {
   // getLayouts
 
   const { data: layouts, isLoading } = api.layout.getLayouts.useQuery();
@@ -93,7 +97,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
   }
 
   // pull the first layout temporarily
-  const Tlayout = layouts[0];
+  const Tlayout = layouts[layoutIdx];
 
   // map component min sizes
 
@@ -131,7 +135,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
           toSpread = { minH: 1, minW: 1 };
           break;
         case "Github":
-          toSpread = { minH: 4, minW: 1 };
+          toSpread = { minH: 8, minW: 1 };
           break;
         case "News":
           toSpread = { minH: 1, minW: 1 };
@@ -160,7 +164,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
       isDroppable={editable}
       onLayoutChange={(newLayout) => {
         // console.log("Layout changed at", new Date(), layout);
-        if (!layouts[0]) {
+        if (!layouts[layoutIdx]) {
           return;
         }
 
@@ -180,7 +184,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
             mapper.set(e.i, e);
           });
 
-          const newLayoutData = layouts[0].layoutData.map((e) => {
+          const newLayoutData = layouts[layoutIdx]?.layoutData.map((e) => {
             return {
               ...e,
               layout: mapper.get(e.layout.i) as unknown as GridLayout.Layout,
@@ -188,7 +192,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
           });
 
           mutation.mutate({
-            id: layouts[0].id,
+            id: layouts[layoutIdx]?.id ?? "",
             data: {
               layoutData: newLayoutData,
             },
@@ -221,7 +225,12 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
   );
 };
 
-const AddSheet: React.FC = () => {
+interface AddSheetProps {
+  layoutIdx: number;
+  setLayoutIdx: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const AddSheet: React.FC<AddSheetProps> = ({ layoutIdx, setLayoutIdx }) => {
   const [stockTicker, setStockTicker] = useState("AAPL");
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -232,7 +241,7 @@ const AddSheet: React.FC = () => {
 
       if (Tlayout === undefined || !layouts) {
       } else {
-        layouts[0] = Tlayout;
+        layouts[layoutIdx] = Tlayout;
         utils.layout.getLayouts.setData(undefined, (_) => {
           return variables.data as any;
         });
@@ -245,7 +254,7 @@ const AddSheet: React.FC = () => {
 
   const createLayout = api.layout.createLayout.useMutation();
 
-  const Tlayout = layouts?.[0];
+  const Tlayout = layouts?.[layoutIdx];
   const utils = api.useContext();
 
   return (
@@ -264,6 +273,11 @@ const AddSheet: React.FC = () => {
         >
           Add a Layout
         </Button>
+        <Input
+          onSubmit={(e) => {
+            setLayoutIdx(Number.parseInt(e.currentTarget.value));
+          }}
+        />
       </div>
       <SheetContent className="w-[400px] sm:w-[900px]">
         <SheetHeader className="">
@@ -320,7 +334,7 @@ const AddSheet: React.FC = () => {
 
                       if (Tlayout === undefined || !layouts) {
                       } else {
-                        layouts[0] = Tlayout;
+                        layouts[layoutIdx] = Tlayout;
 
                         mutation.mutate({
                           id: Tlayout.id,
@@ -365,7 +379,7 @@ const AddSheet: React.FC = () => {
 
                 if (Tlayout === undefined || !layouts) {
                 } else {
-                  layouts[0] = Tlayout;
+                  layouts[layoutIdx] = Tlayout;
 
                   mutation.mutate({
                     id: Tlayout.id,
@@ -409,7 +423,7 @@ const AddSheet: React.FC = () => {
 
                 if (Tlayout === undefined || !layouts) {
                 } else {
-                  layouts[0] = Tlayout;
+                  layouts[layoutIdx] = Tlayout;
 
                   mutation.mutate({
                     id: Tlayout.id,
@@ -453,7 +467,7 @@ const AddSheet: React.FC = () => {
 
                 if (Tlayout === undefined || !layouts) {
                 } else {
-                  layouts[0] = Tlayout;
+                  layouts[layoutIdx] = Tlayout;
 
                   mutation.mutate({
                     id: Tlayout.id,
@@ -496,7 +510,7 @@ const AddSheet: React.FC = () => {
 
                 if (Tlayout === undefined || !layouts) {
                 } else {
-                  layouts[0] = Tlayout;
+                  layouts[layoutIdx] = Tlayout;
 
                   mutation.mutate({
                     id: Tlayout.id,
@@ -538,7 +552,7 @@ const AddSheet: React.FC = () => {
 
                 if (Tlayout === undefined || !layouts) {
                 } else {
-                  layouts[0] = Tlayout;
+                  layouts[layoutIdx] = Tlayout;
 
                   mutation.mutate({
                     id: Tlayout.id,
@@ -580,7 +594,7 @@ const AddSheet: React.FC = () => {
 
                 if (Tlayout === undefined || !layouts) {
                 } else {
-                  layouts[0] = Tlayout;
+                  layouts[layoutIdx] = Tlayout;
 
                   mutation.mutate({
                     id: Tlayout.id,
@@ -622,7 +636,7 @@ const AddSheet: React.FC = () => {
 
                 if (Tlayout === undefined || !layouts) {
                 } else {
-                  layouts[0] = Tlayout;
+                  layouts[layoutIdx] = Tlayout;
 
                   mutation.mutate({
                     id: Tlayout.id,
@@ -650,6 +664,7 @@ const AddSheet: React.FC = () => {
 const Dashboard = () => {
   const { data: session } = useSession();
   const [editing, setEditing] = useState(false);
+  const [layoutIdx, setLayoutIdx] = useState(0);
 
   // get params
   const router = useRouter();
@@ -675,14 +690,16 @@ const Dashboard = () => {
       >
         {editing ? "Normal Mode" : "Edit Mode"}
       </Button>
-      {editing && <AddSheet />}
+      {editing && (
+        <AddSheet layoutIdx={layoutIdx} setLayoutIdx={setLayoutIdx} />
+      )}
       <div
         className={cn(
           editing ? "scale-[85%] border border-white" : "scale-100",
           "transition-all",
         )}
       >
-        <DashboardGrid editable={editing} />
+        <DashboardGrid editable={editing} layoutIdx={layoutIdx} />
       </div>
     </div>
   );

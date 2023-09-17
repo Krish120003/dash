@@ -9,6 +9,9 @@ const CalendarCard = () => {
   if (isLoading) {
     return <>Loading</>;
   }
+  if (!data?.[0]) {
+    return <>No calendar events found!</>;
+  }
   return (
     <div className="text-md">
       <h2 className="text-sm">{data?.[0]?.summary}</h2>
