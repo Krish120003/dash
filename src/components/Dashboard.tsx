@@ -473,7 +473,7 @@ const AddSheet: React.FC = () => {
             </Button>
 
             <Button
-              className="row-span-2 h-auto rounded-2xl border border-white  text-lg dark:bg-black dark:text-white dark:hover:bg-neutral-900"
+              className=" h-auto rounded-2xl border border-white  text-lg dark:bg-black dark:text-white dark:hover:bg-neutral-900"
               onClick={(e) => {
                 let biggestY = 0;
                 Tlayout?.layoutData.forEach((l) => {
