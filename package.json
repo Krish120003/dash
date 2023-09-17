@@ -15,7 +15,7 @@
     "@prisma/client": "^5.1.1",
     "@radix-ui/react-slot": "^1.0.2",
     "@t3-oss/env-nextjs": "^0.6.0",
-    "@tanstack/react-query": "^4.32.6",
+    "@tanstack/react-query": "^4.35.3",
     "@trpc/client": "^10.37.1",
     "@trpc/next": "^10.37.1",
     "@trpc/react-query": "^10.37.1",
@@ -34,6 +34,7 @@
     "superjson": "^1.13.1",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
+    "yahoo-finance2": "^2.6.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
