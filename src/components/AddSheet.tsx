@@ -23,7 +23,6 @@ import { DialogClose } from "@radix-ui/react-dialog";
 
 export const AddSheet: React.FC = () => {
   const [stockTicker, setStockTicker] = useState("AAPL");
-  const closeRef = useRef(null);
 
   return (
     <Sheet>
