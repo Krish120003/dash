@@ -93,7 +93,7 @@ dependencies:
     specifier: ^2.6.0
     version: 2.6.0
   zod:
-    specifier: ^3.22.2
+    specifier: ^3.21.4
     version: 3.22.2
 
 devDependencies:
