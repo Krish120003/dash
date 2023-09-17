@@ -124,10 +124,12 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
 };
 
 const Dashboard = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [editing, setEditing] = useState(false);
-  // extract the name of the user
-  const name = session?.user?.name ?? "World";
+
+  if (!session) {
+    return <div>Not logged in</div>;
+  }
 
   return (
     <div className="min-h-screen max-w-[100vw] overflow-hidden bg-zinc-900 text-white">
