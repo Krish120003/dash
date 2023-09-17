@@ -2,16 +2,6 @@
 CREATE TYPE "LocationType" AS ENUM ('HOME', 'WORK', 'SCHOOL');
 
 -- CreateTable
-CREATE TABLE "Example" (
-    "id" INT8 NOT NULL DEFAULT unique_rowid(),
-    "name" STRING NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "Example_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Account" (
     "id" STRING NOT NULL,
     "userId" STRING NOT NULL,
@@ -56,7 +46,7 @@ CREATE TABLE "Layout" (
     "id" STRING NOT NULL,
     "userId" STRING NOT NULL,
     "name" STRING NOT NULL,
-    "layoutData" JSONB NOT NULL,
+    "layoutData" STRING NOT NULL,
     "locationId" STRING,
 
     CONSTRAINT "Layout_pkey" PRIMARY KEY ("id")
@@ -79,9 +69,6 @@ CREATE TABLE "VerificationToken" (
     "token" STRING NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL
 );
-
--- CreateIndex
-CREATE INDEX "Example_name_idx" ON "Example"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");

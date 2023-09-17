@@ -61,7 +61,7 @@ model Layout {
     id         String    @id @default(cuid())
     userId     String
     name       String
-    layoutData Json
+    layoutData String
     user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
     Location   Location? @relation(fields: [locationId], references: [id])
     locationId String?
