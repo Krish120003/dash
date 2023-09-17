@@ -18,7 +18,7 @@ const StockCard: React.FC<StockCardProps> = ({ ticker }) => {
 
   console.log(ticker, data, isLoading);
 
-  if (isLoading) {
+  if (isLoading || !data) {
     return <div>Loading...</div>;
   }
 
