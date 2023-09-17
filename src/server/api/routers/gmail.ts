@@ -16,18 +16,6 @@ export const gmailRouter = createTRPCRouter({
       userId: "me",
     });
 
-    // const calendar = google.calendar({
-    //   version: "v3",
-    //   auth: ctx.googleOauth2Client,
-    // });
-
-    // const res = await calendar.events.list({
-    //   calendarId: "primary",
-    //   timeMin: new Date().toISOString(),
-    //   maxResults: 10,
-    //   singleEvents: true,
-    //   orderBy: "startTime",
-    // });
 
     return res;
   }),
