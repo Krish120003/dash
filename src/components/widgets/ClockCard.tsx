@@ -17,7 +17,7 @@ export default function ClockCard() {
   if (time === null) return null;
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center text-white">
+    <div className="relative flex h-full w-full items-center justify-center text-white ">
       <svg viewBox="-50 0 95 18" color="white" className="w-[80%]">
         <text color="white" x="0" y="15" fill="white" text-anchor="middle">
           {time.toLocaleTimeString()}

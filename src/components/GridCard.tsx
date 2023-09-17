@@ -30,9 +30,9 @@ const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
     <div
       style={{ ...style }}
       className={cn(
-        "rounded-2xl border-2 border-zinc-400 bg-neutral-800 p-4 mix-blend-overlay",
         className,
-        editable && "border-1 border-white",
+        "rounded-none	border-2	 border-none bg-[#ffffff34] p-4 backdrop-blur-sm ",
+        editable && "",
       )}
       ref={ref}
       onMouseDown={onMouseDown}

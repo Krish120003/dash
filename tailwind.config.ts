@@ -19,6 +19,9 @@ module.exports = {
       fontFamily : {
         'red-hat' : ['Red Hat Display', 'Inter', 'sans-serif']
       },
+      backgroundImage: {
+        'prism': "url('/public/subtlePrism.svg')",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

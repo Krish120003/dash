@@ -43,6 +43,7 @@ import GmailCard from "./widgets/GmailCard";
 // import GithubCard from "./widgets/GithubCard";
 import { deepEqual } from "../utils/deepEqual";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useRouter } from "next/router";
 import GithubCard from "./GithubCard";
 
 interface DashboardGridProps {
@@ -253,9 +254,9 @@ const AddSheet: React.FC = () => {
         <Button onClick={(e) => {}}>Add a Layout</Button>
       </div>
       <SheetContent className="w-[400px] sm:w-[900px]">
-        <SheetHeader className="gap-4">
-          <SheetTitle className="text-2xl">
-            Chose a widget from below to add to your board.
+        <SheetHeader className="">
+          <SheetTitle className="text-md text-center">
+            Chose a widget to add to your board
           </SheetTitle>
           <SheetDescription className=""></SheetDescription>
           <SheetClose ref={closeRef} />
@@ -638,12 +639,24 @@ const Dashboard = () => {
   const { data: session } = useSession();
   const [editing, setEditing] = useState(false);
 
+  // get params
+  const router = useRouter();
+  const { im } = router.query;
+
+  // if its list use the first one
+  const to_use = im ? (Array.isArray(im) ? im[0] : im) : "mount.jpeg";
+
   if (!session) {
     return <div>Not logged in</div>;
   }
 
   return (
-    <div className="relative min-h-screen max-w-[100vw] gap-8 overflow-hidden bg-zinc-900 font-red-hat text-white">
+    <div
+      className={`relative min-h-screen max-w-[100vw] gap-8 overflow-hidden bg-white bg-cover font-red-hat text-white`}
+      style={{
+        backgroundImage: `url(${to_use})`,
+      }}
+    >
       <Button
         className="absolute bottom-5 right-5 z-10 rounded-full"
         onClick={() => setEditing((t) => !t)}
