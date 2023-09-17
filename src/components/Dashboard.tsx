@@ -193,7 +193,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
         const Widget = getWidget(c.widget_type as WidgetTypes);
         return (
           <GridCard key={c.id} editable={editable}>
-            <Widget {...c.data} />
+            <Widget {...(c.data as object)} />
           </GridCard>
         );
       })}
@@ -206,7 +206,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
 
 const AddSheet: React.FC = () => {
   const [stockTicker, setStockTicker] = useState("AAPL");
-  const closeRef = useRef(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   const { data: layouts, isLoading } = api.layout.getLayouts.useQuery();
   const mutation = api.layout.updateLayout.useMutation({
@@ -216,8 +216,8 @@ const AddSheet: React.FC = () => {
       if (Tlayout === undefined || !layouts) {
       } else {
         layouts[0] = Tlayout;
-        utils.layout.getLayouts.setData(undefined, (_fuck) => {
-          return variables.data;
+        utils.layout.getLayouts.setData(undefined, (_) => {
+          return variables.data as any;
         });
       }
     },
