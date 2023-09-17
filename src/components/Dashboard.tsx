@@ -43,7 +43,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
     ) {
       if (Object.keys(x).length != Object.keys(y).length) return false;
 
-      for (var prop in x) {
+      for (const prop in x) {
         if (y.hasOwnProperty(prop)) {
           if (
             !deepEqual(
@@ -105,18 +105,17 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
 
           console.log("newLayoutData", newLayoutData);
 
-          await mutation.mutateAsync({
+          void (await mutation.mutateAsync({
             id: layouts[0].id,
             data: {
               layoutData: newLayoutData,
             },
-          });
+          }));
         }
       }}
     >
       {asdf.map((card) => (
         <GridCard key={card.i} className="" editable={editable}>
-          "I am {card.i}"
           <WeatherCard />
         </GridCard>
       ))}

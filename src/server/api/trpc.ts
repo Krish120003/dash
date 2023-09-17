@@ -50,7 +50,7 @@ const createInnerTRPCContext = async (opts: CreateContextOptions) => {
     session: opts.session,
     db,
     googleOauth2Client,
-    cohere,
+    cohere: cohere,
   };
 };
 

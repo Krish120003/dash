@@ -12,7 +12,7 @@ export default async function handler(
 ) {
   const { ticker } = req.query;
 
-  const quote = await yahooFinance.quote(ticker || "AAPL");
+  const quote: unknown = await yahooFinance.quote(ticker ?? "AAPL");
 
   res.status(200).json({ data: quote });
   /*
