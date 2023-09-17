@@ -18,8 +18,6 @@ const WeatherCard = () => {
     { enabled: !geolocation.error },
   );
 
-  console.log(data);
-
   if (isLoading) {
     return <div>Loading Weather...</div>;
   }

@@ -35,7 +35,7 @@ export const layoutRouter = createTRPCRouter({
       // if there are no layouts, create a default layout
       const defaultLayout = layoutDataSchema.parse([
         {
-          widget_type: "weather",
+          widget_type: "Weather",
           data: {},
           layout: { i: "0", x: 0, y: 0, w: 4, h: 2, minW: 2 },
         },

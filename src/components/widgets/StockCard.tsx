@@ -1,18 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 
-const StockCard = () => {
+interface StockCardProps {
+  ticker: string;
+}
+
+const StockCard: React.FC<StockCardProps> = ({ ticker }) => {
   async function fetchPriceByTicker(ticker: string) {
     const response = await fetch(`http://localhost:3000/api/stock/${ticker}`);
     return response.json();
   }
 
-  const ticker = "AAPL";
-
   const { data, isLoading } = useQuery({
     queryKey: ["todos", ticker],
     queryFn: () => fetchPriceByTicker(ticker),
   });
+
+  console.log(ticker, data, isLoading);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="h-full w-full flex-col justify-between">

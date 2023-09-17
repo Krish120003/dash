@@ -11,7 +11,7 @@ const CalendarCard = () => {
   }
   return (
     <div>
-      <h2>{data?.[0]?.desc}</h2>
+      <h2>{data?.[0]?.summary}</h2>
       <p>
         {data?.[0]?.start?.dateTime} - {data?.[0]?.end?.dateTime}
       </p>
