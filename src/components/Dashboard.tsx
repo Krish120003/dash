@@ -172,10 +172,11 @@ const Dashboard = () => {
             <SheetTitle className="text-2xl">
               Chose a widget from below to add to your board.
             </SheetTitle>
-            <SheetDescription className=" flex h-full w-full justify-around">
+            <SheetDescription className=" "></SheetDescription>
+            <div className="flex h-full w-full justify-around">
               <Button className="w-1/3 text-lg">Weather</Button>
               <Dialog>
-                <DialogTrigger className="w-1/3 bg-white text-lg text-black">
+                <DialogTrigger className="w-1/3 bg-white text-lg font-medium text-black">
                   Stocks
                 </DialogTrigger>
                 <DialogContent>
@@ -195,7 +196,15 @@ const Dashboard = () => {
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
-            </SheetDescription>
+            </div>
+            <div className="flex h-full w-full justify-around">
+              <Button className="w-1/3 text-lg">Location</Button>
+              <Button className="w-1/3 text-lg">News</Button>
+            </div>
+            <div className="flex h-full w-full justify-around">
+              <Button className="w-1/3 text-lg">Calendar</Button>
+              <Button className="w-1/3 text-lg">Gmail</Button>
+            </div>
           </SheetHeader>
         </SheetContent>
       </Sheet>
