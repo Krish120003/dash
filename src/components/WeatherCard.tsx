@@ -10,25 +10,28 @@ const WeatherCard = () => {
     ["weather", geolocation.latitude, geolocation.longitude],
     () => {
       const url = `https://api.openweathermap.org/data/2.5/weather?lat=${geolocation.latitude}&lon=${geolocation.longitude}&appid=${env.NEXT_PUBLIC_OPENWEATHER_API_KEY}`;
-
-      console.log("FETCHING", url);
-      return fetch(url).then((res) => res.json());
+      const backup = `https://api.openweathermap.org/data/2.5/weather?q=Waterloo&appid=${env.NEXT_PUBLIC_OPENWEATHER_API_KEY}`;
+      return fetch(geolocation.latitude === null ? backup : url).then((res) =>
+        res.json(),
+      );
     },
     { enabled: !geolocation.error },
   );
 
   console.log(data);
 
-  if (isLoading || geolocation.error) {
+  if (isLoading) {
     return <div>Loading Weather...</div>;
   }
 
   return (
-    <div>
+    <div className="flex h-full flex-col justify-end">
+      {/* TODO ADD A CLOUD LIKE FIGMA? */}
       <div className="text-4xl font-bold">
         {data.main?.temp ? (data.main.temp - 272.15).toFixed(1) : "N/A"}° C
       </div>
-      {data.weather?.[0].description}
+      <div className="capitalize">{data.weather?.[0].description}</div>
+      <div className="capitalize">{data?.name}</div>
     </div>
   );
 };
