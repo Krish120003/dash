@@ -16,16 +16,18 @@ const GithubCard = () => {
     <div>
       {data.slice(0, 2).map((repo) => (
         <ul>
-          <div
-            className={
-              repo.state === "closed"
-                ? cn("mb-2 rounded-xl border-2 border-green-400 p-2 ")
-                : cn("mb-2 rounded-xl border-2 border-red-400 p-2 ")
-            }
-          >
-            <li>{repo.title}</li>
-            <li>{repo.url}</li>
-          </div>
+          <a href={repo.url} target="_blank">
+            <div
+              className={
+                repo.state === "closed"
+                  ? cn("mb-2 rounded-xl border-2 border-green-400 p-2 ")
+                  : cn("mb-2 rounded-xl border-2 border-red-400 p-2 ")
+              }
+            >
+              <li>{repo.title}</li>
+              <li>{repo.url}</li>
+            </div>
+          </a>
         </ul>
       ))}
     </div>
