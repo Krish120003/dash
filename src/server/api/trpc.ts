@@ -56,12 +56,8 @@ const createInnerTRPCContext = async (opts: CreateContextOptions) => {
     session: opts.session,
     db,
     googleOauth2Client,
-<<<<<<< Updated upstream
-    cohere: cohere,
-=======
     cohere,
     githubOauth2Client,
->>>>>>> Stashed changes
   };
 };
 
