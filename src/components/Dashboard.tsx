@@ -43,6 +43,7 @@ import GmailCard from "./widgets/GmailCard";
 // import GithubCard from "./widgets/GithubCard";
 import { deepEqual } from "../utils/deepEqual";
 import { DialogClose } from "@radix-ui/react-dialog";
+import GithubCard from "./GithubCard";
 
 interface DashboardGridProps {
   editable: boolean;
@@ -73,7 +74,7 @@ const getWidget = (type: WidgetTypes) => {
     Gmail: GmailCard,
     Calendar: CalendarCard,
     Stock: StockCard,
-    Github: Temp,
+    Github: GithubCard,
     News: NewsCard,
     Clock: ClockCard,
   };
@@ -249,6 +250,7 @@ const AddSheet: React.FC = () => {
         <SheetTrigger className="text-md font-red-hat">
           <Button>Add a Wigdet</Button>
         </SheetTrigger>
+        <Button onClick={(e) => {}}>Add a Layout</Button>
       </div>
       <SheetContent className="w-[400px] sm:w-[900px]">
         <SheetHeader className="gap-4">
@@ -582,6 +584,48 @@ const AddSheet: React.FC = () => {
               }}
             >
               Spacer
+            </Button>
+            <Button
+              className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900"
+              onClick={(e) => {
+                let biggestY = 0;
+                Tlayout?.layoutData.forEach((l) => {
+                  if (l.layout.y + l.layout.h > biggestY) {
+                    biggestY = l.layout.y + l.layout.h;
+                  }
+                });
+
+                Tlayout?.layoutData.push({
+                  layout: {
+                    h: 2,
+                    w: 3,
+                    i: (Math.random() + 1).toString(36).substring(7),
+                    x: 0,
+                    y: biggestY,
+                  },
+                  widget_type: "Github" as WidgetTypes,
+                  data: { ticker: stockTicker },
+                });
+
+                if (Tlayout === undefined || !layouts) {
+                } else {
+                  layouts[0] = Tlayout;
+
+                  mutation.mutate({
+                    id: Tlayout.id,
+                    data: {
+                      layoutData: Tlayout.layoutData,
+                    },
+                  });
+                }
+
+                if (closeRef && closeRef.current) {
+                  closeRef.current.click();
+                }
+                return e;
+              }}
+            >
+              Github
             </Button>
           </div>
         </SheetHeader>

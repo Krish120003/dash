@@ -14,7 +14,7 @@ const GithubCard = () => {
 
   return (
     <div>
-      {data.slice(0, 5).map((repo) => (
+      {data.slice(0, 2).map((repo) => (
         <ul>
           <div
             className={

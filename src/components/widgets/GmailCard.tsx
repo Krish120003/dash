@@ -11,7 +11,7 @@ const GmailCard = () => {
   }
   return (
     <div>
-      <p>{data?.data?.threads?.[0]?.snippet}</p>
+      <p>{data?.[0]?.snippet}</p>
     </div>
   );
 };

@@ -36,26 +36,27 @@ export const gmailRouter = createTRPCRouter({
     }
 
     const resolved = await Promise.all(messages);
+    return resolved;
 
-    const url = "https://api.cohere.ai/v1/rerank";
-    const options = {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-        authorization: `Bearer ${env.COHERE_API_KEY}`,
-      },
-      body: JSON.stringify({
-        return_documents: false,
-        max_chunks_per_doc: 10,
-        model: "rerank-english-v2.0",
-        query: "What is the latest important email to view?",
-        documents: resolved.map((m) => m.snippet),
-      }),
-    };
+    // const url = "https://api.cohere.ai/v1/rerank";
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     accept: "application/json",
+    //     "content-type": "application/json",
+    //     authorization: `Bearer ${env.COHERE_API_KEY}`,
+    //   },
+    //   body: JSON.stringify({
+    //     return_documents: false,
+    //     max_chunks_per_doc: 10,
+    //     model: "rerank-english-v2.0",
+    //     query: "What is the latest important email to view?",
+    //     documents: resolved.map((m) => m.snippet),
+    //   }),
+    // };
 
-    const cohereData = await fetch(url, options);
-    console.log(await cohereData.json());
-    return await cohereData.json();
+    // const cohereData = await fetch(url, options);
+    // console.log(await cohereData.json());
+    // return await cohereData.json();
   }),
 });
