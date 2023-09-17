@@ -72,7 +72,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
       isResizable={editable}
       isDraggable={editable}
       isDroppable={editable}
-      onLayoutChange={async (newLayout) => {
+      onLayoutChange={(newLayout) => {
         // console.log("Layout changed at", new Date(), layout);
         if (!layouts[0]) {
           return;
@@ -105,12 +105,12 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
 
           console.log("newLayoutData", newLayoutData);
 
-          void (await mutation.mutateAsync({
+          mutation.mutate({
             id: layouts[0].id,
             data: {
               layoutData: newLayoutData,
             },
-          }));
+          });
         }
       }}
     >
