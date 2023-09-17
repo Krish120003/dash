@@ -153,6 +153,9 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
       <GridCard editable={editable} key="clock">
         <ClockCard />
       </GridCard>
+      <GridCard editable={editable} key="github">
+        <GithubCard />
+      </GridCard>
     </GridLayout>
   );
 };
