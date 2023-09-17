@@ -7,9 +7,7 @@ const StockCard = () => {
     return response.json();
   }
 
-  const ticker = "k";
-
-  // fetch(`http://localhost:3000/api/stock/${ticker}`)
+  const ticker = "AAPL";
 
   const { data, isLoading } = useQuery({
     queryKey: ["todos", ticker],
@@ -17,18 +15,23 @@ const StockCard = () => {
   });
 
   return (
-    <div>
-      <div className="flex gap-4">
-        <p className="h3">{ticker}</p>
-        {!isLoading ? `${data.data.shortname}` : "Fetching Name..."}
+    <div className="h-full w-full flex-col justify-between">
+      <div className="gap-4">
+        <div className="text-4xl font-bold">
+          {!isLoading
+            ? `\$${data.data.regularMarketPrice}`
+            : "Loading Price..."}
+        </div>
+        {!isLoading
+          ? ` ${data.data.regularMarketChangePercent}\%`
+          : "Loading Change..."}
       </div>
-
-      {!isLoading
-        ? `Market Price: ${data.data.regularMarketPrice}`
-        : "Loading Price..."}
-      {!isLoading
-        ? `Percent Change ${data.data.regularMarketChangePercent}`
-        : "Loading Change..."}
+      <div className="flex items-end justify-between">
+        <p className="text-4xl font-bold">{ticker}</p>
+        <p className="text-xl">
+          {!isLoading ? `${data.data.shortName}` : "Fetching Name..."}
+        </p>
+      </div>
     </div>
   );
 };
