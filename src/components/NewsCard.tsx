@@ -16,9 +16,9 @@ const NewsCard = () => {
 
   return (
     <div>
-      <h2>{data?.articles[0]?.title}</h2>
+      <h2 className="text-sm">{data?.articles[0]?.title}</h2>
       {data?.articles[0]?.description && (
-        <p>{data?.articles[0]?.description}</p>
+        <p className="text-sm">{data?.articles[0]?.description}</p>
       )}
       {data?.articles[0]?.source?.name}
     </div>

@@ -42,6 +42,7 @@
     "react-grid-layout": "^1.4.1",
     "react-hook-form": "^7.46.1",
     "react-hook-geolocation": "^1.1.0",
+    "react-textfit": "^1.1.1",
     "superjson": "^1.13.1",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",

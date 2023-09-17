@@ -39,6 +39,7 @@ import { Grid } from "lucide-react";
 import SaveLocation from "./SaveLocation";
 import ClockCard from "./widgets/ClockCard";
 import GmailCard from "./widgets/GmailCard";
+
 // import GithubCard from "./widgets/GithubCard";
 import { deepEqual } from "../utils/deepEqual";
 import { DialogClose } from "@radix-ui/react-dialog";
@@ -70,7 +71,7 @@ const getWidget = (type: WidgetTypes) => {
     Stock: StockCard,
     Github: Temp,
     News: NewsCard,
-    Clock: Temp,
+    Clock: ClockCard,
   };
   return mapping[type as WidgetTypes] || (() => <></>);
 };
@@ -192,7 +193,15 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
       {extractedComponents.map((c) => {
         const Widget = getWidget(c.widget_type as WidgetTypes);
         return (
-          <GridCard key={c.id} editable={editable}>
+          <GridCard
+            key={c.id}
+            editable={editable}
+            className={cn(
+              c.widget_type === "Spacer" || c.widget_type === "Clock"
+                ? "border-none bg-transparent"
+                : null,
+            )}
+          >
             <Widget {...(c.data as object)} />
           </GridCard>
         );
@@ -230,7 +239,11 @@ const AddSheet: React.FC = () => {
 
   return (
     <Sheet>
-      <SheetTrigger className="text-md font-red-hat">Add a Wigdet</SheetTrigger>
+      <div className="flex gap-4 p-4">
+        <SheetTrigger className="text-md font-red-hat">
+          <Button>Add a Wigdet</Button>
+        </SheetTrigger>
+      </div>
       <SheetContent className="w-[400px] sm:w-[900px]">
         <SheetHeader className="gap-4">
           <SheetTitle className="text-2xl">
@@ -240,7 +253,7 @@ const AddSheet: React.FC = () => {
           <SheetClose ref={closeRef} />
           <div className="grid grid-cols-2 gap-4 text-white">
             <Dialog>
-              <DialogTrigger className="aspect-square h-auto rounded-2xl border border-white bg-black text-lg font-medium text-black">
+              <DialogTrigger className="aspect-square h-auto rounded-2xl border border-white bg-black text-lg font-medium">
                 Stocks
               </DialogTrigger>
               <DialogContent>
@@ -309,23 +322,216 @@ const AddSheet: React.FC = () => {
             </Dialog>
             <Button
               className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900"
-              onClick={(e) => {}}
+              onClick={(e) => {
+                let biggestY = 0;
+                Tlayout?.layoutData.forEach((l) => {
+                  if (l.layout.y + l.layout.h > biggestY) {
+                    biggestY = l.layout.y + l.layout.h;
+                  }
+                });
+
+                Tlayout?.layoutData.push({
+                  layout: {
+                    h: 2,
+                    w: 3,
+                    i: (Math.random() + 1).toString(36).substring(7),
+                    x: 0,
+                    y: biggestY,
+                  },
+                  widget_type: "Weather" as WidgetTypes,
+                  data: { ticker: stockTicker },
+                });
+
+                if (Tlayout === undefined || !layouts) {
+                } else {
+                  layouts[0] = Tlayout;
+
+                  mutation.mutate({
+                    id: Tlayout.id,
+                    data: {
+                      layoutData: Tlayout.layoutData,
+                    },
+                  });
+                }
+
+                if (closeRef && closeRef.current) {
+                  closeRef.current.click();
+                }
+                return e;
+              }}
             >
               <div className="scale-75">
                 <WeatherCard />
               </div>
             </Button>
-            <Button className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900">
-              Location
+            <Button
+              className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900"
+              onClick={(e) => {
+                let biggestY = 0;
+                Tlayout?.layoutData.forEach((l) => {
+                  if (l.layout.y + l.layout.h > biggestY) {
+                    biggestY = l.layout.y + l.layout.h;
+                  }
+                });
+
+                Tlayout?.layoutData.push({
+                  layout: {
+                    h: 2,
+                    w: 3,
+                    i: (Math.random() + 1).toString(36).substring(7),
+                    x: 0,
+                    y: biggestY,
+                  },
+                  widget_type: "Clock" as WidgetTypes,
+                  data: {},
+                });
+
+                if (Tlayout === undefined || !layouts) {
+                } else {
+                  layouts[0] = Tlayout;
+
+                  mutation.mutate({
+                    id: Tlayout.id,
+                    data: {
+                      layoutData: Tlayout.layoutData,
+                    },
+                  });
+                }
+
+                if (closeRef && closeRef.current) {
+                  closeRef.current.click();
+                }
+                return e;
+              }}
+            >
+              <div className="scale-[20%]">{/* <ClockCard /> */}</div>
+              <ClockCard />
             </Button>
-            <Button className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900">
-              News
+            <Button
+              className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900"
+              onClick={(e) => {
+                let biggestY = 0;
+                Tlayout?.layoutData.forEach((l) => {
+                  if (l.layout.y + l.layout.h > biggestY) {
+                    biggestY = l.layout.y + l.layout.h;
+                  }
+                });
+
+                Tlayout?.layoutData.push({
+                  layout: {
+                    h: 2,
+                    w: 3,
+                    i: (Math.random() + 1).toString(36).substring(7),
+                    x: 0,
+                    y: biggestY,
+                  },
+                  widget_type: "News" as WidgetTypes,
+                  data: { ticker: stockTicker },
+                });
+
+                if (Tlayout === undefined || !layouts) {
+                } else {
+                  layouts[0] = Tlayout;
+
+                  mutation.mutate({
+                    id: Tlayout.id,
+                    data: {
+                      layoutData: Tlayout.layoutData,
+                    },
+                  });
+                }
+
+                if (closeRef && closeRef.current) {
+                  closeRef.current.click();
+                }
+                return e;
+              }}
+            >
+              <NewsCard />
             </Button>
 
-            <Button className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900">
-              Calendar
+            <Button
+              className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900"
+              onClick={(e) => {
+                let biggestY = 0;
+                Tlayout?.layoutData.forEach((l) => {
+                  if (l.layout.y + l.layout.h > biggestY) {
+                    biggestY = l.layout.y + l.layout.h;
+                  }
+                });
+
+                Tlayout?.layoutData.push({
+                  layout: {
+                    h: 2,
+                    w: 3,
+                    i: (Math.random() + 1).toString(36).substring(7),
+                    x: 0,
+                    y: biggestY,
+                  },
+                  widget_type: "Calendar" as WidgetTypes,
+                  data: { ticker: stockTicker },
+                });
+
+                if (Tlayout === undefined || !layouts) {
+                } else {
+                  layouts[0] = Tlayout;
+
+                  mutation.mutate({
+                    id: Tlayout.id,
+                    data: {
+                      layoutData: Tlayout.layoutData,
+                    },
+                  });
+                }
+
+                if (closeRef && closeRef.current) {
+                  closeRef.current.click();
+                }
+                return e;
+              }}
+            >
+              <CalendarCard />
             </Button>
-            <Button className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900">
+            <Button
+              className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900"
+              onClick={(e) => {
+                let biggestY = 0;
+                Tlayout?.layoutData.forEach((l) => {
+                  if (l.layout.y + l.layout.h > biggestY) {
+                    biggestY = l.layout.y + l.layout.h;
+                  }
+                });
+
+                Tlayout?.layoutData.push({
+                  layout: {
+                    h: 2,
+                    w: 3,
+                    i: (Math.random() + 1).toString(36).substring(7),
+                    x: 0,
+                    y: biggestY,
+                  },
+                  widget_type: "Gmail" as WidgetTypes,
+                  data: { ticker: stockTicker },
+                });
+
+                if (Tlayout === undefined || !layouts) {
+                } else {
+                  layouts[0] = Tlayout;
+
+                  mutation.mutate({
+                    id: Tlayout.id,
+                    data: {
+                      layoutData: Tlayout.layoutData,
+                    },
+                  });
+                }
+
+                if (closeRef && closeRef.current) {
+                  closeRef.current.click();
+                }
+                return e;
+              }}
+            >
               Gmail
             </Button>
           </div>

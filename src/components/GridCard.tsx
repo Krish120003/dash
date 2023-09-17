@@ -14,7 +14,16 @@ interface GridCardProps {
 }
 
 const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
-  { style, className, onMouseDown, onMouseUp, onTouchEnd, children, ...props },
+  {
+    style,
+    className,
+    onMouseDown,
+    onMouseUp,
+    onTouchEnd,
+    children,
+    editable,
+    ...props
+  },
   ref: React.Ref<HTMLDivElement>,
 ) {
   return (
@@ -23,6 +32,7 @@ const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
       className={cn(
         "rounded-2xl border-2 border-zinc-400 bg-neutral-800 p-4 mix-blend-overlay",
         className,
+        editable && "border-1 border-white",
       )}
       ref={ref}
       onMouseDown={onMouseDown}
@@ -30,6 +40,10 @@ const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
       onTouchEnd={onTouchEnd}
       {...props}
     >
+      {editable && (
+        <div className="absolute right-1 top-1 m-4 bg-red-500 p-4">Delete</div>
+      )}
+
       {children}
     </div>
   );

@@ -10,9 +10,9 @@ const CalendarCard = () => {
     return <>Loading</>;
   }
   return (
-    <div>
-      <h2>{data?.[0]?.summary}</h2>
-      <p>
+    <div className="text-md">
+      <h2 className="text-sm">{data?.[0]?.summary}</h2>
+      <p className="text-sm">
         {data?.[0]?.start?.dateTime} - {data?.[0]?.end?.dateTime}
       </p>
     </div>
