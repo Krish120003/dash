@@ -8,6 +8,7 @@ import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import WeatherCard from "./WeatherCard";
 import StockCard from "./widgets/StockCard";
+import GithubCard from "./GithubCard";
 
 import {
   Sheet,
@@ -31,6 +32,7 @@ import {
 import { ThemeProvider } from "./theme-provider";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import SaveLocation from "./SaveLocation";
 
 interface DashboardGridProps {
   editable: boolean;
@@ -146,6 +148,9 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
       <GridCard editable={editable} key="stock">
         <StockCard />
       </GridCard>
+      <GridCard editable={editable} key="github">
+        <GithubCard />
+      </GridCard>
     </GridLayout>
   );
 };
@@ -160,6 +165,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen max-w-[100vw] gap-8 overflow-hidden bg-zinc-900 font-red-hat text-white">
+      <SaveLocation />
       <Button className="text-md" onClick={() => setEditing((t) => !t)}>
         {editing ? "Normal Mode" : "Edit Mode"}
       </Button>

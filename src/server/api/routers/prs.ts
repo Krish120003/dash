@@ -19,7 +19,7 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 interface PullRequest {
   title: string;
-  state: string;
+  state: "open" | "closed";
   url: string;
 }
 
@@ -51,7 +51,9 @@ export const githubRouter = createTRPCRouter({
         for (const repo of topRepos ?? []) {
           const pullRequests = await getAllPullRequests("arian81", repo.name);
           pullRequests?.forEach((pr, index) => {
-            prs.push({ title: pr.title, state: pr.state, url: pr.html_url });
+            const state: "open" | "closed" =
+              pr.state === "open" ? "open" : "closed";
+            prs.push({ title: pr.title, state: state, url: pr.html_url });
           });
         }
         return prs;
