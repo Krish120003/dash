@@ -64,7 +64,11 @@ const Temp: React.FC = () => {
 
 const getWidget = (type: WidgetTypes) => {
   const mapping: Record<WidgetTypes, React.FC<any>> = {
-    Spacer: Temp,
+    Spacer: () => (
+      <div className="flex h-full w-full items-center justify-center">
+        Spacer
+      </div>
+    ),
     Weather: WeatherCard,
     Gmail: GmailCard,
     Calendar: CalendarCard,
@@ -197,9 +201,11 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
             key={c.id}
             editable={editable}
             className={cn(
-              c.widget_type === "Spacer" || c.widget_type === "Clock"
+              (c.widget_type === "Spacer" || c.widget_type === "Clock") &&
+                !editable
                 ? "border-none bg-transparent"
                 : null,
+              c.widget_type === "Spacer" && !editable && "opacity-0",
             )}
           >
             <Widget {...(c.data as object)} />
@@ -254,7 +260,7 @@ const AddSheet: React.FC = () => {
           <div className="grid grid-cols-2 gap-4 text-white">
             <Dialog>
               <DialogTrigger className="aspect-square h-auto rounded-2xl border border-white bg-black text-lg font-medium">
-                Stocks
+                Stock Ticker
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
@@ -404,8 +410,9 @@ const AddSheet: React.FC = () => {
                 return e;
               }}
             >
-              <div className="scale-[20%]">{/* <ClockCard /> */}</div>
-              <ClockCard />
+              <div className="w-full overflow-visible">
+                <ClockCard />
+              </div>
             </Button>
             <Button
               className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900"
@@ -451,7 +458,7 @@ const AddSheet: React.FC = () => {
             </Button>
 
             <Button
-              className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900"
+              className="row-span-2 h-auto rounded-2xl border border-white  text-lg dark:bg-black dark:text-white dark:hover:bg-neutral-900"
               onClick={(e) => {
                 let biggestY = 0;
                 Tlayout?.layoutData.forEach((l) => {
@@ -532,7 +539,49 @@ const AddSheet: React.FC = () => {
                 return e;
               }}
             >
-              Gmail
+              Gmail Recent Mail
+            </Button>
+            <Button
+              className="aspect-square h-auto rounded-2xl border border-white text-lg  dark:bg-black dark:text-white dark:hover:bg-neutral-900"
+              onClick={(e) => {
+                let biggestY = 0;
+                Tlayout?.layoutData.forEach((l) => {
+                  if (l.layout.y + l.layout.h > biggestY) {
+                    biggestY = l.layout.y + l.layout.h;
+                  }
+                });
+
+                Tlayout?.layoutData.push({
+                  layout: {
+                    h: 2,
+                    w: 3,
+                    i: (Math.random() + 1).toString(36).substring(7),
+                    x: 0,
+                    y: biggestY,
+                  },
+                  widget_type: "Spacer" as WidgetTypes,
+                  data: { ticker: stockTicker },
+                });
+
+                if (Tlayout === undefined || !layouts) {
+                } else {
+                  layouts[0] = Tlayout;
+
+                  mutation.mutate({
+                    id: Tlayout.id,
+                    data: {
+                      layoutData: Tlayout.layoutData,
+                    },
+                  });
+                }
+
+                if (closeRef && closeRef.current) {
+                  closeRef.current.click();
+                }
+                return e;
+              }}
+            >
+              Spacer
             </Button>
           </div>
         </SheetHeader>

@@ -18,8 +18,8 @@ export default function ClockCard() {
 
   return (
     <div className="relative flex h-full w-full items-center justify-center text-white">
-      <svg viewBox="0 0 56 18" color="white" className="w-[80%]">
-        <text color="white" x="0" y="15" fill="white">
+      <svg viewBox="-50 0 95 18" color="white" className="w-[80%]">
+        <text color="white" x="0" y="15" fill="white" text-anchor="middle">
           {time.toLocaleTimeString()}
         </text>
       </svg>
