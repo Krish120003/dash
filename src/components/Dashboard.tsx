@@ -3,7 +3,7 @@ import React, { useRef, forwardRef, useState } from "react";
 import { Button } from "./ui/button";
 
 import GridLayout from "react-grid-layout";
-import GridCard from "./Gridcard";
+import GridCard from "./GridCard";
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 
@@ -51,7 +51,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
 
   return (
     <GridLayout
-      className="w-full overflow-x-hidden bg-red-400"
+      className="w-full overflow-x-hidden"
       layout={asdf}
       cols={12}
       autoSize={true}
@@ -100,7 +100,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
       }}
     >
       {asdf.map((card) => (
-        <GridCard key={card.i} className="bg-yellow-500">
+        <GridCard key={card.i} className="" editable={editable}>
           "I am {card.i}"
         </GridCard>
       ))}
@@ -115,7 +115,7 @@ const Dashboard = () => {
   const name = session?.user?.name ?? "World";
 
   return (
-    <div className="min-h-screen max-w-[100vw] overflow-hidden bg-zinc-800 text-white">
+    <div className="min-h-screen max-w-[100vw] overflow-hidden bg-zinc-900 text-white">
       <Button onClick={() => setEditing((t) => !t)}>
         {editing ? "Normal Mode" : "Edit Mode"}
       </Button>

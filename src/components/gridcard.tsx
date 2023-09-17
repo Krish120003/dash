@@ -1,6 +1,7 @@
 import React from "react";
 import { forwardRef } from "react";
 import GridLayout from "react-grid-layout";
+import { cn } from "~/lib/utils";
 
 interface GridCardProps {
   style?: React.CSSProperties;
@@ -9,6 +10,7 @@ interface GridCardProps {
   onMouseUp?: React.MouseEventHandler<HTMLDivElement>;
   onTouchEnd?: React.TouchEventHandler<HTMLDivElement>;
   children?: React.ReactNode;
+  editable: boolean;
 }
 
 const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
@@ -18,7 +20,10 @@ const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
   return (
     <div
       style={{ ...style }}
-      className={className}
+      className={cn(
+        "rounded-2xl border-2 border-zinc-400 bg-neutral-800 p-4",
+        className,
+      )}
       ref={ref}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
