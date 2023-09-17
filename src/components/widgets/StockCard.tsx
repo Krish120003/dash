@@ -7,7 +7,7 @@ interface StockCardProps {
 
 const StockCard: React.FC<StockCardProps> = ({ ticker }) => {
   async function fetchPriceByTicker(ticker: string) {
-    const response = await fetch(`http://localhost:3000/api/stock/${ticker}`);
+    const response = await fetch(`/api/stock/${ticker}`);
     return response.json();
   }
 
