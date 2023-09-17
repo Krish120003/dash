@@ -6,6 +6,7 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import GithubProvider from "next-auth/providers/github";
 
 import { env } from "~/env.mjs";
 import { db } from "~/server/db";
@@ -75,6 +76,15 @@ export const authOptions: NextAuthOptions = {
           response_type: "code",
         },
       },
+    }),
+    GithubProvider({
+      clientId: env.GITHUB_CLIENT_ID,
+      clientSecret: env.GITHUB_CLIENT_SECRET,
+      // authorization: {
+      //   params: {
+      //     scope: ["user", "repo", "user:email"].join(" "),
+      //   },
+      // },
     }),
   ],
 };

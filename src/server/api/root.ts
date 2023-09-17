@@ -4,6 +4,7 @@ import { locationRouter } from "./routers/location";
 import { gmailRouter } from "./routers/gmail";
 import { newsRouter } from "./routers/news";
 import { layoutRouter } from "./routers/layout";
+import { githubRouter } from "./routers/prs";
 
 /**
  * This is the primary router for your server.
@@ -16,6 +17,7 @@ export const appRouter = createTRPCRouter({
   gmail: gmailRouter,
   news: newsRouter,
   layout: layoutRouter,
+  prs: githubRouter,
 });
 
 // export type definition of API
