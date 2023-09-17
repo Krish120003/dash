@@ -9,11 +9,18 @@ const NewsCard = () => {
   if (isLoading) {
     return <>Loading</>;
   }
+
+  if (!data.articles) {
+    return <>No Articles</>;
+  }
+
   return (
     <div>
-      <h2>{data.articles[0].title}</h2>
-      {data.articles[0]?.description && <p>{data.articles[0].description}</p>}
-      {data.articles[0].source.name}
+      <h2>{data?.articles[0]?.title}</h2>
+      {data?.articles[0]?.description && (
+        <p>{data?.articles[0]?.description}</p>
+      )}
+      {data?.articles[0]?.source?.name}
     </div>
   );
 };
