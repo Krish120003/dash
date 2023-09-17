@@ -40,10 +40,6 @@ const GridCard: React.FC<GridCardProps> = forwardRef(function GridCardInner(
       onTouchEnd={onTouchEnd}
       {...props}
     >
-      {editable && (
-        <div className="absolute right-1 top-1 m-4 bg-red-500 p-4">Delete</div>
-      )}
-
       {children}
     </div>
   );
