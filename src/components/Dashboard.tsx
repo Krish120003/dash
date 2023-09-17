@@ -599,13 +599,13 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen max-w-[100vw] gap-8 overflow-hidden bg-zinc-900 font-red-hat text-white">
-      <button
-        className="absolute bottom-5 right-5 rounded-full"
+    <div className="relative min-h-screen max-w-[100vw] gap-8 overflow-hidden bg-zinc-900 font-red-hat text-white">
+      <Button
+        className="absolute bottom-5 right-5 z-10 rounded-full"
         onClick={() => setEditing((t) => !t)}
       >
         {editing ? "Normal Mode" : "Edit Mode"}
-      </button>
+      </Button>
       {editing && <AddSheet />}
       <div
         className={cn(
