@@ -32,6 +32,8 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: z.string().min(1),
     COHERE_API_KEY: z.string().min(1),
     NEWSAPI_API_KEY: z.string().min(1),
+    GITHUB_CLIENT_ID: z.string().min(1),
+    GITHUB_CLIENT_SECRET: z.string().min(1),
     // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
   },
 
@@ -60,6 +62,8 @@ export const env = createEnv({
     NEWSAPI_API_KEY: process.env.NEWSAPI_API_KEY,
     NEXT_PUBLIC_OPENWEATHER_API_KEY:
       process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY,
+    GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
+    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

@@ -16,6 +16,7 @@ import { ZodError } from "zod";
 import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
 import { getGoogleOauth2Client } from "../google";
+import { getGithubOauth2Client } from "../github";
 import { cohere } from "../cohere";
 
 /**
@@ -46,11 +47,21 @@ const createInnerTRPCContext = async (opts: CreateContextOptions) => {
     session: opts.session,
   });
 
+  const githubOauth2Client = await getGithubOauth2Client({
+    db,
+    session: opts.session,
+  });
+
   return {
     session: opts.session,
     db,
     googleOauth2Client,
+<<<<<<< Updated upstream
     cohere: cohere,
+=======
+    cohere,
+    githubOauth2Client,
+>>>>>>> Stashed changes
   };
 };
 

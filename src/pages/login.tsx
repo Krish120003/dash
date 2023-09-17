@@ -55,6 +55,12 @@ const Login: NextPage = () => {
             main={true}
             provider={"google"}
           />
+          <LoginButton
+            key={"github"}
+            title="Github"
+            main={false}
+            provider={"github"}
+          />
         </div>
       </div>
     </>
