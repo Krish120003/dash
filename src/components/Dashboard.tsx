@@ -242,6 +242,9 @@ const AddSheet: React.FC = () => {
       await utils.layout.getLayouts.invalidate();
     },
   });
+
+  const createLayout = api.layout.createLayout.useMutation();
+
   const Tlayout = layouts?.[0];
   const utils = api.useContext();
 
@@ -251,7 +254,16 @@ const AddSheet: React.FC = () => {
         <SheetTrigger className="text-md font-red-hat">
           <Button>Add a Wigdet</Button>
         </SheetTrigger>
-        <Button onClick={(e) => {}}>Add a Layout</Button>
+        <Button
+          onClick={(e) => {
+            createLayout.mutate({
+              layoutData: [],
+              name: "Layout",
+            });
+          }}
+        >
+          Add a Layout
+        </Button>
       </div>
       <SheetContent className="w-[400px] sm:w-[900px]">
         <SheetHeader className="">

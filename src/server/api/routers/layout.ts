@@ -95,7 +95,7 @@ export const layoutRouter = createTRPCRouter({
       z.object({
         name: z.string(),
         layoutData: layoutDataSchema,
-        locationId: z.string(),
+        locationId: z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
