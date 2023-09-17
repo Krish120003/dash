@@ -99,7 +99,7 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
           const newLayoutData = layouts[0].layoutData.map((e) => {
             return {
               ...e,
-              layout: mapper.get(e.layout.i),
+              layout: mapper.get(e.layout.i) as unknown as GridLayout.Layout,
             };
           });
 
