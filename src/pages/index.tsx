@@ -7,6 +7,8 @@ import { api } from "~/utils/api";
 import React from "react";
 import { GetServerSidePropsContext } from "next/types";
 import { getServerAuthSession } from "~/server/auth";
+import { ThemeProvider } from "~/components/theme-provider";
+import { ModeToggle } from "~/components/ui/toggle";
 
 export default function Home() {
   return (
@@ -22,10 +24,14 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      <main className=" flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#401d6f] to-[#5559a5]">
-        <div className="font-red-hat container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <Dash />
-        </div>
+
+      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#401d6f] to-[#5559a5]">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ModeToggle />
+          <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 font-red-hat">
+            <Dash />
+          </div>
+        </ThemeProvider>
       </main>
     </>
   );

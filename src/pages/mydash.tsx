@@ -3,6 +3,7 @@ import { GetServerSidePropsContext } from "next/types";
 import Dashboard from "../components/Dashboard";
 import { getServerAuthSession } from "~/server/auth";
 import React from "react";
+import { ThemeProvider } from "~/components/theme-provider";
 
 // const DynamicDash = dynamic(() => import("../components/Dashboard"), {
 //   loading: () => <p>Loading...</p>,
@@ -13,8 +14,10 @@ export default function Dash() {
   return (
     <>
       <main className="min-h-screen w-full">
-        {/* <DynamicDash /> */}
-        <Dashboard />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {/* <DynamicDash /> */}
+          <Dashboard />
+        </ThemeProvider>
       </main>
     </>
   );
