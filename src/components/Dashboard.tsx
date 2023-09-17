@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import React, { useRef, forwardRef, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 
 import GridLayout from "react-grid-layout";
@@ -27,9 +27,12 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
   const asdf =
     Tlayout?.layoutData.map((l) => {
       return l.layout;
-    }) || [];
+    }) ?? [];
 
-  const deepEqual = function (x: any, y: any) {
+  const deepEqual = function (
+    x: Record<string, unknown>,
+    y: Record<string, unknown>,
+  ) {
     if (x === y) {
       return true;
     } else if (
@@ -42,7 +45,13 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
 
       for (var prop in x) {
         if (y.hasOwnProperty(prop)) {
-          if (!deepEqual(x[prop], y[prop])) return false;
+          if (
+            !deepEqual(
+              x[prop] as Record<string, unknown>,
+              y[prop] as Record<string, unknown>,
+            )
+          )
+            return false;
         } else return false;
       }
 
@@ -73,7 +82,12 @@ const DashboardGrid: React.FC<DashboardGridProps> = ({ editable }) => {
           return { h: e.h, i: e.i, w: e.w, x: e.x, y: e.y };
         });
 
-        if (!deepEqual(temp, asdf)) {
+        if (
+          !deepEqual(
+            temp as unknown as Record<string, unknown>,
+            asdf as unknown as Record<string, unknown>,
+          )
+        ) {
           console.log("LAYOUT CHANGED", temp, asdf);
 
           const mapper = new Map();

@@ -103,7 +103,7 @@ export const layoutRouter = createTRPCRouter({
         data: {
           userId: ctx.session.user.id,
           name: input.name,
-          layoutData: input.layoutData as JsonArray,
+          layoutData: JSON.stringify(input.layoutData),
         },
       });
     }),
