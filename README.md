@@ -1,28 +1,51 @@
-# Create T3 App
+# Devpost
+View the devpost for Dash [here](https://devpost.com/software/dash-um2zil).
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+# Inspiration
+I (Jason) started using Home Assistant about a year or so ago, and always thought it would be useful to have a similar customizable dashboard for the rest of my online life. Since then, Jason has shared this with all of us and as roommates, we all have a huge interest in home automation. Taking inspiration from both hyper-customized HTML start-pages from the early web, and the modern Momentum-like new tab pages of today, we decided to create Dash to make a useful homepage for our browsers.
 
-## What's next? How do I make an app with this?
+As busy students and software developers, It's always nice to try and automate complexity out of our daily workflow. Inspired by the dashboard on Home Assistant, we decided to create a general purpose dashboard built to be your central point of your digital life.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+# What it does
+Dash is a hub meant to contain common web resources that a user frequents. These could be stock information, course schedules, weather, news summaries, or actionable emails. We intend for the dashboard to be user-friendly while being customizable.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Dash operates on data from your Gmail, calendar, and location to build a contextual dashboard for a new tab page. Location is at school? Dash opens smart summaries of your school email. Back home and wanna read up on your stock trading hobby? Dash automatically detects your location, and presents you with the latest stock news summaries and ticker prices.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+# How we built it
+We used the T3 Stack (NextJS, Typescript, tRPC, Prisma, Tailwind) to make our web application. We utilize Google Cloud for Gmail, Google Calendar, and news api. We also use open weather api to get live news and weather data from your location. Yahoo finance was used to retrieve the latest stock prices.
 
-## Learn More
+We developed an entire widget and grid system from scratch in React for this, and we use Cockroach DB to store all our user data, from authentication, to service OAuth tokens, to storing detailed and complex dashboard layouts.
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+# Challenges we ran into
+- Ideation + finishing the project in time
+- Deciding what features to prioritize
+- Finding a balance between displaying sufficient info and retaining a clean UI
+- React state management and mutation with React Query
+- Making a fully dynamic grid system to load a large number of widgets
+- Implementing several useful widgets for our users.
+# Accomplishments that we're proud of
+- Widget adding tool
+- Working stock display widget
+- Storing dynamic layout in the database
+# What we learned
+- Building a dynamic widget system is difficult. Very difficult.
+- Storing metadata for various widgets in a relational database, with various different fields for each type of widget.
+- How to use Yahoo finance API (unofficially)
+- How to use React Query well
+- How hard it is to build a user-configurable dashboard
+- By deconstructing the layout state into JSON we were able to store it on a database
+# What's next for Dash
+Complete compatibility with student portals (Avenue to Learn, etc.) More options for the UI, such as more options for information display, and font customization Increased efficiency for loading widgets Uploading custom themes and background We originally planned for multiple dashboard support, and dynamic context-based switching. Unfortunately, we found that implementing an editable dashboard was more difficult than expected, and we were unable to add that feature in time.
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+# Cockroach DB
+We used Prisma as an Orm with official support for cockroach db to store most of the data from our web app. We stored the typical info such as user accounts from authentication and location data for use in backend and frontend. We decided to try an innovative approach for the first time where we stored our dynamic layout state in cockroach db which means any changes made by the users are synced and stored in the database.
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+# Google Cloud
+Since we’re connecting many services such as gmail, calendar, events, google docs and Oauth we used google cloud APIs to streamline the process of fetching and processing the data.
 
-## How do I deploy this?
+# Best.tech Domain
+We used the domain dashapp.tech for our app which is memorable and short. It’s also very telling of our project, it being a dashboard app to help manage your tech.
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+GitHub
+We used github as our version manager and connected it to our deployment service Vercel. This allowed for fast and convenient CI/CD where our commits were deployed in less than a minute and we could check our changed code in the production environment. We used a vs code share server to collaborate on the code as a group which allowed us to finish many features at the last minute.
+
