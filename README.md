@@ -1,51 +1,53 @@
-# Devpost
-View the devpost for Dash [here](https://devpost.com/software/dash-um2zil).
+# Dash - Your Personalized Digital Dashboard
 
-# Inspiration
-I (Jason) started using Home Assistant about a year or so ago, and always thought it would be useful to have a similar customizable dashboard for the rest of my online life. Since then, Jason has shared this with all of us and as roommates, we all have a huge interest in home automation. Taking inspiration from both hyper-customized HTML start-pages from the early web, and the modern Momentum-like new tab pages of today, we decided to create Dash to make a useful homepage for our browsers.
+Welcome to Dash, your customizable digital dashboard designed to simplify your online life. Dash provides you with a central hub for all your frequently visited web resources, whether it's stock information, course schedules, weather updates, news summaries, or actionable emails. It's your one-stop solution to automate complexity out of your daily digital workflow.
 
-As busy students and software developers, It's always nice to try and automate complexity out of our daily workflow. Inspired by the dashboard on Home Assistant, we decided to create a general purpose dashboard built to be your central point of your digital life.
+![Dash Screenshot](./assets/dash-banner.png)
 
-# What it does
-Dash is a hub meant to contain common web resources that a user frequents. These could be stock information, course schedules, weather, news summaries, or actionable emails. We intend for the dashboard to be user-friendly while being customizable.
+This project was created at [Hack the North 2023](https://hackthenorth.com/) in under 36 hours. It is currently deployed live at [dashapp.tech](https://dashapp.tech). View the devpost for Dash [here](https://devpost.com/software/dash-um2zil).
 
-Dash operates on data from your Gmail, calendar, and location to build a contextual dashboard for a new tab page. Location is at school? Dash opens smart summaries of your school email. Back home and wanna read up on your stock trading hobby? Dash automatically detects your location, and presents you with the latest stock news summaries and ticker prices.
+## The Stack
 
-# How we built it
-We used the T3 Stack (NextJS, Typescript, tRPC, Prisma, Tailwind) to make our web application. We utilize Google Cloud for Gmail, Google Calendar, and news api. We also use open weather api to get live news and weather data from your location. Yahoo finance was used to retrieve the latest stock prices.
+We follow the T3 stack for this project, including:
 
-We developed an entire widget and grid system from scratch in React for this, and we use Cockroach DB to store all our user data, from authentication, to service OAuth tokens, to storing detailed and complex dashboard layouts.
+- **Frontend:**
 
-# Challenges we ran into
-- Ideation + finishing the project in time
-- Deciding what features to prioritize
-- Finding a balance between displaying sufficient info and retaining a clean UI
-- React state management and mutation with React Query
-- Making a fully dynamic grid system to load a large number of widgets
-- Implementing several useful widgets for our users.
-# Accomplishments that we're proud of
-- Widget adding tool
-- Working stock display widget
-- Storing dynamic layout in the database
-# What we learned
-- Building a dynamic widget system is difficult. Very difficult.
-- Storing metadata for various widgets in a relational database, with various different fields for each type of widget.
-- How to use Yahoo finance API (unofficially)
-- How to use React Query well
-- How hard it is to build a user-configurable dashboard
-- By deconstructing the layout state into JSON we were able to store it on a database
-# What's next for Dash
-Complete compatibility with student portals (Avenue to Learn, etc.) More options for the UI, such as more options for information display, and font customization Increased efficiency for loading widgets Uploading custom themes and background We originally planned for multiple dashboard support, and dynamic context-based switching. Unfortunately, we found that implementing an editable dashboard was more difficult than expected, and we were unable to add that feature in time.
+  - **NextJS:** A React framework for building server-rendered web applications.
+  - **Typescript:** A statically typed superset of JavaScript, adding type annotations for improved code quality and maintainability.
+  - **tRPC:** Likely a library or tool for handling TypeScript RPC (Remote Procedure Call) requests.
+  - **Tailwind CSS:** A utility-first CSS framework for rapidly building custom user interfaces.
 
-# Cockroach DB
-We used Prisma as an Orm with official support for cockroach db to store most of the data from our web app. We stored the typical info such as user accounts from authentication and location data for use in backend and frontend. We decided to try an innovative approach for the first time where we stored our dynamic layout state in cockroach db which means any changes made by the users are synced and stored in the database.
+- **Backend:**
 
-# Google Cloud
-Since we’re connecting many services such as gmail, calendar, events, google docs and Oauth we used google cloud APIs to streamline the process of fetching and processing the data.
+  - **Prisma:** An ORM (Object-Relational Mapping) used to interact with your database.
+  - **Cockroach DB:** A distributed SQL database used to store user data, including authentication, layout configurations, and more.
 
-# Best.tech Domain
-We used the domain dashapp.tech for our app which is memorable and short. It’s also very telling of our project, it being a dashboard app to help manage your tech.
+- **External APIs:**
 
-GitHub
-We used github as our version manager and connected it to our deployment service Vercel. This allowed for fast and convenient CI/CD where our commits were deployed in less than a minute and we could check our changed code in the production environment. We used a vs code share server to collaborate on the code as a group which allowed us to finish many features at the last minute.
+  - **Google Cloud:** Used for integrating Gmail, Google Calendar, and other Google services.
+  - **Open Weather API:** Provides live weather data based on user location.
+  - **Yahoo Finance API:** Used to retrieve the latest stock prices and information.
+  - **News API:** Provides live news updates and summaries.
 
+- **Development and Deployment:**
+  - **GitHub:** Your version control system for managing the project's codebase.
+  - **Vercel:** A deployment service integrated with GitHub for Continuous Integration/Continuous Deployment (CI/CD).
+
+### Accomplishments
+
+- [x] **Dynamic Layout:** Implemented a fully dynamic layout system that allows users to customize their dashboard layout.
+- [x] **Widget Adding Tool:** Created an intuitive tool for adding widgets to the dashboard.
+- [x] **Working Stock Display Widget:** Implemented a real-time stock display widget.
+- [x] **Dynamic Layout Storage:** Stored dynamic layout configurations in the database, ensuring user changes are saved and synchronized.
+- [x] **Gmail API Integration:** Seamlessly integrated with the Gmail API to provide email-related widgets and updates.
+- [x] **News Integration:** Incorporated news APIs to deliver live news updates on the dashboard.
+- [x] **Weather Integration:** Utilized weather APIs to provide users with real-time weather data based on their location.
+- [x] **Calendar Integration:** Integrated with calendar APIs to display calendar events and schedules on the dashboard.
+- [x] **User Authentication:** Implemented user authentication and authorization using Next-Auth and Prisma.
+
+### Things to Add
+
+- [ ] **Additional UI Customization Options:** Add more options for customizing information display and font styles.
+- [ ] **Improved Widget Loading Efficiency:** Enhance the efficiency of loading widgets for a smoother user experience.
+- [ ] **Custom Themes and Backgrounds:** Allow users to upload and apply custom themes and backgrounds to personalize their dashboards.
+- [ ] **Multiple Dashboard Support:** Implement support for multiple dashboards and dynamic context-based switching for users.
